@@ -1,8 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+* {
+  box-sizing: border-box;
+}
 body {
- background-color:#010511;
- color:white;
+  background-color: #010511;
+  margin: 0;
+  color: white;
+  overflow-x: hidden;
+}
+@media (max-width: 1025px) {
+  .lg_screen_max {
+    display: none;
+  }
+}
+@media (min-width:1025px) {
+ .md_screen_min {
+  display:none;
+ }
+}
+@media (max-width: 450px) {
+  .md_screen_max {
+    display: none;
+  }
+}
+@media (min-width:450px) {
+ .sm_screen_min {
+  display:none;
+ }
 }
