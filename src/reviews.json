@@ -1,0 +1,26 @@
+[
+ {
+  "desc": "I recently stumbled upon called Posterizer. The design is seriously next level - it's sleek, modern, and just overall really visually appealing.",
+  "personImg": "/About/reviewer1.png",
+  "personName": "Artin Mickel",
+  "title": "Awesome Design"
+ },
+ {
+  "desc": "Just wanted to shoot you a quick email about this awesome website I came across called \"Posterizer\". It's seriously next level when it comes to performance",
+  "personImg": "/About/reviewer2.png",
+  "personName": "Yousef Magdi",
+  "title": "High Performance"
+ },
+ {
+  "desc": "It's a super awesome website with a huge and vibrant community that's just waiting for you to join in. Whether you're into art, design, music, or just want to share your ideas.",
+  "personImg": "/About/reviewer3.png",
+  "personName": "Marty  Jackson",
+  "title": "Large Community"
+ },
+ {
+  "desc": "\"Posterizer\" that I recently came across. It's a great platform where you can share your posts and ideas without any worries about privacy or security.",
+  "personImg": "/About/reviewer4.png",
+  "personName": "Baul Hoky",
+  "title": "Extra Safety"
+ }
+]

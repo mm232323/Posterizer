@@ -1,0 +1,42 @@
+[
+ {
+  "desc": "With our sophisticated tools for posting and seamless communication features, you'll be able to take your online presence to the next level.",
+  "dir": "rtl",
+  "ico": "/About/growup_ico.png",
+  "scrollPos": "",
+  "title": "Growing more",
+  "year": "2024"
+ },
+ {
+  "desc": "With our We are bringing on more management and hiring additional employees to help us continue to provide the best service possible.",
+  "dir": "ltr",
+  "ico": "/About/management_ico.png",
+  "scrollPos": "",
+  "title": "More management",
+  "year": "2020"
+ },
+ {
+  "desc": "As many of you may have noticed, we have been focusing more on enhancing the quality of content and improving the user interface and experience on our platform.",
+  "dir": "rtl",
+  "ico": "/About/target_ico.png",
+  "scrollPos": "",
+  "title": "Quality focusing",
+  "year": "2018"
+ },
+ {
+  "desc": "we are dedicated to revolutionizing the way we communicate, post, and share ideas. Our platform is designed to inspire creativity.",
+  "dir": "ltr",
+  "ico": "/About/vision_ico.png",
+  "scrollPos": "",
+  "title": "View vision",
+  "year": "2015"
+ },
+ {
+  "desc": "We are in the early stages of launching a new communication social media company with some really awesome ideas.",
+  "dir": "rtl",
+  "ico": "/About/planning_ico.png",
+  "scrollPos": "",
+  "title": "Planning and begin",
+  "year": "2010"
+ }
+]

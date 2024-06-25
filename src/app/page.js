@@ -1,4 +1,4 @@
-import Header from "../components/header";
+import Header from "../components/layout/header";
 import Image from "next/image";
 import Link from "next/link";
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
         src="/Start/connecting_points1.png"
         width={1494}
         height={894}
-        className="absolute h-[730px] lg_screen_max"
+        className="absolute h-[730px] lg_screen_max bottom-0"
       />
       <Image
         src="/Start/connecting_points2.png"
