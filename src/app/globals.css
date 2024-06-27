@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 * {
   box-sizing: border-box;
 }
@@ -27,6 +27,16 @@ body {
 }
 @media (min-width:450px) {
  .sm_screen_min {
+  display:none;
+ }
+}
+@media (max-width: 650px) {
+  .sm_md_screen_max {
+    display: none;
+  }
+}
+@media (min-width:650px) {
+ .sm_md_screen_min {
   display:none;
  }
 }
