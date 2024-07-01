@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Home() {
   return (
-    <main>
+    <main className="bg-[#010511] h-fit">
       <Image src="/Start/background1.png" fill className="md_screen_max" />
       <Image
         src="/Start/background2.png"

@@ -3,12 +3,12 @@ import NavLink from "../ui/navLink";
 import Link from "next/link";
 export default function Footer() {
   return (
-    <div className="width-full h-[320px] border-white border-t-[1px] bg-white/5 max-[450px]:h-[482px]">
+    <div className="width-full h-[320px] border-white border-t-[1px] bg-white/5 [@media(max-width:450px)]:h-[482px]">
       <center>
         <div className="relative top-[40px]">
           <Link href="/">
             <Image
-              className="inline max-[450px]:w-[500px]"
+              className="inline [@media(max-width:450px)]:w-[500px]"
               src="/posterizer.svg"
               alt="posterizer"
               width={157}
@@ -17,12 +17,12 @@ export default function Footer() {
           </Link>
           <div className="flex left-1/2">
             <NavLink href="/about" type='text'>
-              <h1 className="font-[181] text-[23px] text-[#A1E5D5] relative inline pr-[30px] top-[4px] left-[80px] hover:opacity-70 duration-[.4s] cursor-pointer max-[450px]:text-[13px] max-[450px]:left-[30px] max-[450px]:pr-[15px] max-[450px]:top-[-3px]">
+              <h1 className="font-[181] text-[23px] text-[#A1E5D5] relative inline pr-[30px] top-[4px] left-[80px] hover:opacity-70 duration-[.4s] cursor-pointer [@media(max-width:450px)]:text-[13px] [@media(max-width:450px)]:left-[30px] [@media(max-width:450px)]:pr-[15px] [@media(max-width:450px)]:top-[-3px]">
                 about
               </h1>
             </NavLink>
             <NavLink href="/contact" type='text'>
-              <h1 className="font-[181] text-[23px] text-[#A1E5D5] relative inline top-[4px] left-[80px] hover:opacity-70 duration-[.4s] cursor-pointer max-[450px]:text-[13px] max-[450px]:left-[30px] max-[450px]:top-[-3px]">
+              <h1 className="font-[181] text-[23px] text-[#A1E5D5] relative inline top-[4px] left-[80px] hover:opacity-70 duration-[.4s] cursor-pointer [@media(max-width:450px)]:text-[13px] [@media(max-width:450px)]:left-[30px] [@media(max-width:450px)]:top-[-3px]">
                 contact
               </h1>
             </NavLink>
@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
         <hr className="w-[65%] opacity-40 translate-y-[60px]" />
       </center>
-      <div className="flex gap-5 relative top-[90px] left-1/2 translate-x-[-5%] max-[450]:translate-x-[-25%]">
+      <div className="flex gap-5 relative top-[90px] left-1/2 translate-x-[-5%] [@media(max-width:450px)]:translate-x-[-25%]">
         <Image
           src="/About/facebook.png"
           width={30}
