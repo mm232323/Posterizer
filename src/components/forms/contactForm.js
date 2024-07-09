@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import { sendMessage } from "../server-actions.js";
+import { sendMessage } from "../../../actions/server-actions.js";
 import { useFormState } from "react-dom";
 export default function ContactForm() {
   const [formState, formAction] = useFormState(sendMessage, { errors: [] });
   return (
     <form
-      className="[@media(min-width:770px)]:p-[50px] [@media(min-width:770px)]:pl-[70px] [@media(max-width:890px)]:pl-[30px] [@media(max-width:770px)]:p-0 [@media(max-width:770px)]:relative [@media(max-width:770px)]:left-1/2 [@media(max-width:770px)]:translate-x-[-50%] w-fit [@media(max-width:770px)]:top-[750px]"
+      className="[@media(min-width:770px)]:p-[50px] [@media(min-width:770px)]:pl-[70px] [@media(max-width:890px)]:pl-[30px] [@media(max-width:770px)]:p-0 [@media(max-width:770px)]:relative [@media(max-width:770px)]:left-1/2 [@media(max-width:770px)]:translate-x-[-50%] w-fit [@media(max-width:600px)]:top-[600px] [@media(max-width:770px)]:top-[750px]"
       action={formAction}
     >
       <div className="flex flex-col w-fit static max-w-[500px] mb-[8px]">

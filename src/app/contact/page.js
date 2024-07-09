@@ -1,4 +1,4 @@
-import ContactForm from "@/components/contactForm";
+import ContactForm from "@/components/forms/contactForm";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import Image from "next/image";
@@ -29,7 +29,7 @@ export default function Contact() {
       <p className="font-[111] opacity-70 text-[30px] absolute [@media(min-width:1125px)]:right-[100px] top-[600px] [@media(max-width:1125px)]:text-[23px] [@media(max-width:1125px)]:right-[50px] [@media(max-width:1125px)]:top-[580px] [@media(max-width:770px)]:left-1/2 [@media(max-width:770px)]:translate-x-[-47%] [@media(max-width:770px)]:text-[25px] text-center">
         Easy contacting & Good service
       </p>
-      <div className="h-[825px] w-full bg-white/5 [@media(max-width:770px)]:h-[1500px]">
+      <div className="h-[825px] w-full bg-white/5 [@media(max-width:770px)]:h-[1500px] [@media(max-width:600px)]:h-[1000px]">
         <ContactForm />
       </div>
       <Footer />
