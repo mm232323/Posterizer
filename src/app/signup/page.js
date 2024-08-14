@@ -33,6 +33,7 @@ export default function Signup() {
         src="/whiteLogo.svg"
         width={183.6}
         height={179.1}
+        alt="signup main logo"
         className="absolute [@media(min-width:770px)]:right-[220px] top-[320px] [@media(max-width:770px)]:left-1/2 [@media(max-width:770px)]:translate-x-[-50%]"
       />
       <h1 className="font-[181] text-[70px] [@media(max-width:1125px)]:text-[47px] [@media(max-width:1125px)]:right-[70px] absolute [@media(min-width:1125px)]:right-[100px] top-[500px] [@media(min-width:770px)]:right-[180px] [@media(max-width:770px)]:left-1/2 w-fit [@media(max-width:770px)]:translate-x-[-50%] [@media(max-width:770px)]:text-[50px]">

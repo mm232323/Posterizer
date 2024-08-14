@@ -4,7 +4,7 @@ import Image from "next/image";
 import reviews from "@/reviews.json";
 import Review from "@/components/about/review";
 import Footer from "@/components/layout/footer";
-export default function About() {
+export default function UserAbout({ params }) {
   return (
     <main className="">
       <Image
@@ -14,7 +14,7 @@ export default function About() {
         src="/About/background.png"
         alt="background"
       />
-      <Header size="large" />
+      <Header isAuth={true} id={params.id} />
       <section className="relative top-[55px]">
         <h1 className="text-[72px] font-bold relative left-[86px] w-fit [@media(max-width:1050px)]:text-[58px] [@media(max-width:1050px)]:left-[50px] [@media(max-width:660px)]:left-1/2 [@media(max-width:660px)]:translate-x-[-50%] [@media(max-width:660px)]:text-[50px] [@media(max-width:500px)]:text-[35px]">
           BEST COMMUNITY

@@ -1,10 +1,10 @@
 "use server";
 import { redirect } from "next/navigation";
-
-import { createSession } from "@/util/sessions";
 import { simpleHash, userVerified } from "@/util/user";
-import { decrypt, encrypt } from "@/util/hash";
-import bcrybt from "bcrypt";
+import { createSession, createUser } from "../src/util/http";
+import { revalidatePath } from "next/cache";
+import validate from "deep-email-validator";
+import PasswordValidator from "password-validator";
 export async function sendMessage(state, event) {
   const errors = [];
   const data = Object.fromEntries(event);
@@ -42,8 +42,11 @@ export async function signin(state, event) {
   const name = event.get("name");
   const phone = event.get("phone");
   const email = event.get("email");
+  const emailValidate = await validate(email);
   const gender = event.get("gender");
+  const choosen_gender = event.get("choosen_gender");
   const password = event.get("password");
+  const passwordValidate = new PasswordValidator();
   const check_password = event.get("check_password");
   const errors = {
     name: "",
@@ -53,18 +56,26 @@ export async function signin(state, event) {
     password: "",
     check_password: "",
   };
+  passwordValidate
+    .is()
+    .min(8)
+    .is()
+    .max(20)
+    .has()
+    .uppercase()
+    .has()
+    .lowercase()
+    .has()
+    .digits(2)
+    .has()
+    .not()
+    .spaces();
   if (name.trim().length < 3) errors.name = "enter a valid name";
   if (phone.trim().length !== 11) errors.phone = "enter a valid phone number";
   if (gender !== "on") errors.gender = "please choose a gender";
-  if (
-    !email.includes(".") ||
-    !email.includes("@") ||
-    email.slice(0, email.indexOf("@")).length == 0 ||
-    email.slice(email.indexOf("@") + 1, email.indexOf(".")).length == 0 ||
-    email.slice(email.indexOf(".") + 1).length == 0
-  )
+  if (!emailValidate.validators.mx.valid)
     errors.email = "please enter a valid email";
-  if (password.trim().length < 8 || password.trim().length > 16)
+  if (!passwordValidate.validate(password))
     errors.password =
       "please enter a valid password \n must be (8 <= characters <= 16)";
   if (
@@ -77,41 +88,45 @@ export async function signin(state, event) {
     if (value.length > 0) return { errors };
   }
   user.views = 0;
+  user.followed = [];
   user.followers = [];
   user.posts = [];
-  const response = await fetch("http://localhost:8080/signup/create-user", {
-    method: "POST",
-    body: JSON.stringify(user),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  // ==========================================
-  const session = await createSession(user.password);
-  let decryptedSession = await decrypt(session);
-  let encryptedPass = simpleHash(password)
-  decryptedSession["email"] = email;
-  decryptedSession["password"] = password;
-  decryptedSession["encrypted"] = (session.slice(0, 5) + encryptedPass)
-  decryptedSession["encrypted"].replace("undefined")
-  await fetch("http://localhost:8080/signin/create-session", {
-    method: "POST",
-    body: JSON.stringify(decryptedSession),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log(decryptedSession["encrypted"]);
-  redirect(`/profile/${decryptedSession["encrypted"]}`);
+  user.nots = [];
+  user.avatar = "";
+  const response = await createUser(user);
+  if (response == "THE EMAIL ALREADY EXISTS") {
+    errors.email = "the email is already exists";
+    return { errors };
+  }
+  const hashId = email + password + email.split("").reverse();
+  const id = simpleHash(hashId);
+  await createSession(user, hashId);
 }
 
-export async function login(state, event) {
-  const email = event.get("email");
-  const password = event.get("password");
+export async function login(state, formData) {
+  const email = formData.get("email");
+  const password = formData.get("password");
   const checkUser = JSON.parse(await userVerified(email, password));
   if (!checkUser.isVerified) return true;
-  const session = await encrypt({ password });
-  const id = session.slice(0, 5) + simpleHash(password)
-  await createSession(password);
+  const hashId = email + password + email.split("").reverse();
+  const id = simpleHash(hashId);
+  const response = await fetch(
+    `http://localhost:8080/login/create-session/${id}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const resMessage = await response.json();
+  revalidatePath("/");
   redirect(`/profile/${id}`);
+}
+export async function logout(userId) {
+  console.log(userId);
+  const response = await fetch(`http://localhost:8080/user/logout/${userId}`, {
+    headers: { "Content-Type": "application/json" },
+  });
+  revalidatePath("/");
+  redirect("/");
 }

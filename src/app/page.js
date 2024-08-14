@@ -39,7 +39,7 @@ export default function Home() {
         covered!
       </p>
       <Link href="/login">
-        <button className="bg-white max-[1025px]:p-[25px] rounded-[6px] max-[1025px]:rounded-[12px] text-[#010511] text-[26px] max-[1025px]:text-[30px] max-[450px]:text-[23px] max-[450px]:p-[15px] font-extralight p-[13px] relative left-1/2 translate-x-[-50%] top-[110px] max-[1025px]:top-[420px] max-[450px]:top-[180px] duration-[.4s] border-white border-[.5px] hover:bg-transparent hover:text-white">
+        <button className="bg-white max-[1025px]:p-[25px] rounded-[6px] max-[1025px]:rounded-[12px] shadow-[0_3px_40px_0_#ffffff1a] hover:shadow-[0_3px_40px_0_#ffffff00] text-[#010511] text-[26px] max-[1025px]:text-[30px] max-[450px]:text-[23px] max-[450px]:p-[15px] font-extralight p-[13px] relative left-1/2 translate-x-[-50%] top-[110px] max-[1025px]:top-[420px] max-[450px]:top-[180px] duration-[.4s] border-white border-[.5px] hover:bg-transparent hover:text-white">
           start now
         </button>
       </Link>

@@ -1,40 +1,39 @@
+import React from "react";
 import Header from "@/components/layout/header";
-import Avatar from "@/components/profile/Avatar";
 import Image from "next/image";
-import { redirect } from "next/navigation";
-export default async function UserProfile({ params }) {
-  const response = await fetch(`http://localhost:8080/user/${params.id}`, {
+import FollowButton from "@/components/profile/followButton";
+export default async function AnotherUserProfile({ params }) {
+  const response1 = await fetch(`http://localhost:8080/user/${params.id2}`, {
     headers: { "Content-Type": "application/json" },
-    next: { revalidate: 5 },
   });
-  if (!response.ok) redirect("/");
-  let { name, posts, choosen_gender, avatar, phone, views, followers } =
-    await response.json();
-  let name2 = name.split(" ").slice(0, 2);
-  name2[1] = name2[1][0];
-  name2 = name2.join(" ");
+  const response2 = await fetch(`http://localhost:8080/user/${params.id}`, {
+    headers: { "Content-Type": "application/json" },
+  });
+  let user = await response2.json();
+  let isFollowed = user.followed.includes(params.id2);
+  let { name, posts, choosen_gender, phone, views, followers } =
+    await response1.json();
+  name = name.split(" ").slice(0, 2);
+  name[1] = name[1][0];
+  name = name.join(" ");
   return (
     <main className="">
       <Header size="large" isAuth={true} id={params.id} />
       <div className="p-[40px] grid grid-rows-1 grid-cols-2">
-        <div className="w-[529px] h-[800px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[30px]">
-          {!avatar && (
-            <Image
-              src="/Header/man.png"
-              width={520}
-              height={520}
-              alt="avatar man"
-              className="w-[293px] h-[293px] rounded-full border-white border-[.5px] relative top-[40px] left-1/2 translate-x-[-50%]"
-            />
-          )}
-          <Avatar id={params.id} />
+        <div className="w-[529px] h-[840px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[30px]">
+          <Image
+            src="/Header/man.png"
+            width={520}
+            height={520}
+            className="w-[293px] h-[293px] rounded-full border-white border-[.5px] relative top-[40px] left-1/2 translate-x-[-50%]"
+          />
           <h1 className="text-[45px] font-[469] relative top-[50px] text-center mb-[15px]">
             {choosen_gender == "Male"
               ? "Mr."
               : choosen_gender == "Female"
               ? "Ms."
               : ""}
-            {name2}
+            {name}
           </h1>
           <p className="font-[100] text-[28px] left-[40px] relative top-[60px] opacity-80 mb-[15px]">
             Name: {name}
@@ -51,6 +50,11 @@ export default async function UserProfile({ params }) {
           <p className="font-[100] text-[28px] left-[40px] relative top-[60px] opacity-80 mb-[15px]">
             Followers: {followers.length}
           </p>
+          <FollowButton
+            follower={params.id}
+            followed={params.id2}
+            isFollowed={isFollowed}
+          />
         </div>
         <div className="w-[752px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[30px] relative left-[-100px] p-[30px] pl-[40px]">
           <h1 className="text-[45px] font-[469]">Shared Posts</h1>
@@ -78,7 +82,7 @@ export default async function UserProfile({ params }) {
                   Views {post.views}
                 </span>
                 <span className="font-[80] opacity-90 mr-[10px] text-[12px] relative pl-[20px] top-[-160px] left-[220px]">
-                  Comments {post.comments}
+                  Comments {post.comments.length}
                 </span>
                 <span className="font-[80] opacity-90 mr-[10px] text-[12px] relative pl-[20px] top-[-160px] left-[220px]">
                   Reactions {post.reactions}

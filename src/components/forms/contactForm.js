@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { sendMessage } from "../../../actions/server-actions.js";
+import { sendMessage } from "../../../actions/auth-actions.js";
 import { useFormState } from "react-dom";
 export default function ContactForm() {
   const [formState, formAction] = useFormState(sendMessage, { errors: [] });

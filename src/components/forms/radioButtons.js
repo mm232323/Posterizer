@@ -1,10 +1,5 @@
 "use client";
-import { useState } from "react";
-export default function RadioButtons({state}) {
-  const [choosedGender, setChoosedGender] = useState('none');
-  function handleChooseGender(value) {
-    setChoosedGender((prevValue) => value);
-  }
+export default function RadioButtons({ state, onHandleGender }) {
   return (
     <div
       name="gender"
@@ -20,21 +15,21 @@ export default function RadioButtons({state}) {
           className="w-[17px] h-[17px] mr-[40px]"
           type="radio"
           name="gender"
-          onClick={() => handleChooseGender("Male")}
+          onClick={() => onHandleGender("Male")}
         />
         <label className="font-[200] text-[15px] mr-[10px]">Female</label>
         <input
           className="w-[17px] h-[17px] mr-[40px]"
           type="radio"
           name="gender"
-          onClick={() => handleChooseGender("Fremale")}
+          onClick={() => onHandleGender("Female")}
         />
         <label className="font-[200] text-[15px] mr-[10px]">Other</label>
         <input
           className="w-[17px] h-[17px] mr-[40px]"
           type="radio"
           name="gender"
-          onClick={() => handleChooseGender("Other")}
+          onClick={() => onHandleGender("Other")}
         />
       </center>
     </div>

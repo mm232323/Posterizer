@@ -1,9 +1,26 @@
 "use client";
-import React from "react";
-import { signin } from "../../../actions/server-actions";
+import React, { useState } from "react";
+import { signin } from "../../../actions/auth-actions";
 import { useFormState } from "react-dom";
 import RadioButtons from "./radioButtons";
 export default function SigninForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [gender, setGender] = useState("none");
+  const handleGender = (type) => {
+    console.log(type);
+    setGender((prevGender) => type);
+  };
+  const handleClick = () => {
+    if (
+      !state?.errors.name &&
+      !state?.errors.phone &&
+      !state?.errors.email &&
+      !state?.errors.check_password &&
+      !state?.errors.password &&
+      !state?.errors.gender
+    )
+      setIsLoading(true);
+  };
   const [state, action] = useFormState(signin, {
     errors: {
       name: "",
@@ -14,6 +31,13 @@ export default function SigninForm() {
       check_password: "",
     },
   });
+  let inputsIsValid =
+    !state?.errors.name &&
+    !state?.errors.phone &&
+    !state?.errors.email &&
+    !state?.errors.check_password &&
+    !state?.errors.password &&
+    !state?.errors.gender & isLoading;
   return (
     <form
       className="[@media(min-width:770px)]:p-[50px] [@media(min-width:770px)]:pl-[70px] [@media(max-width:890px)]:pl-[30px] [@media(max-width:770px)]:p-0 [@media(max-width:770px)]:relative [@media(max-width:770px)]:left-1/2 [@media(max-width:770px)]:translate-x-[-50%] w-fit [@media(max-width:600px)]:top-[600px] [@media(max-width:770px)]:top-[750px]"
@@ -68,7 +92,13 @@ export default function SigninForm() {
         >
           Gender
         </label>
-        <RadioButtons state={state} />
+        <RadioButtons onHandleGender={handleGender} state={state} />
+        <input
+          type="text"
+          defaultValue={gender}
+          name="choosen_gender"
+          className="hidden"
+        />
       </div>
       <div className="flex flex-col w-fit static max-w-[500px] mb-[8px]">
         <label
@@ -130,8 +160,11 @@ export default function SigninForm() {
           }`}
         />
       </div>
-      <button className="bg-gradient-to-r from-[#83C9C5] to-[#4997B0] p-[5px] w-[240px] h-[71px] rounded-[1px] text-[#0E141F] font-[100] text-[30px] hover:shadow-[0_7px_20px_0_#83c9c527] duration-[.5s] mt-[30px]">
-        Sign up
+      <button
+        className="bg-gradient-to-r from-[#83C9C5] to-[#4997B0] p-[5px] w-[240px] h-[71px] rounded-[1px] text-[#0E141F] font-[100] text-[30px] hover:shadow-[0_7px_20px_0_#83c9c527] duration-[.5s] mt-[30px]"
+        onClick={handleClick}
+      >
+        {isLoading ? "Signing up..." : "Sign up"}
       </button>
     </form>
   );

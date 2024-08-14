@@ -4,39 +4,121 @@
 * {
   box-sizing: border-box;
 }
+:root {
+  background-color: #010511 !important;
+}
 body {
-  background-color:#010511;
+  background-color: #010511 !important;
   margin: 0;
   color: white;
   overflow-x: hidden;
+}
+body::selection {
+  background-color: white;
+  color: #010511;
 }
 @media (max-width: 1025px) {
   .lg_screen_max {
     display: none;
   }
 }
-@media (min-width:1025px) {
- .md_screen_min {
-  display:none;
- }
+@media (min-width: 1025px) {
+  .md_screen_min {
+    display: none;
+  }
 }
 @media (max-width: 450px) {
   .md_screen_max {
     display: none;
   }
 }
-@media (min-width:450px) {
- .sm_screen_min {
-  display:none;
- }
+@media (min-width: 450px) {
+  .sm_screen_min {
+    display: none;
+  }
 }
 @media (max-width: 650px) {
   .sm_md_screen_max {
     display: none;
   }
 }
-@media (min-width:650px) {
- .sm_md_screen_min {
-  display:none;
- }
+@media (min-width: 650px) {
+  .sm_md_screen_min {
+    display: none;
+  }
 }
+.circle-keys {
+  animation: 2s ease-in-out infinite;
+  animation-name: circle-keys;
+  transform: translate(-50%, -50%);
+}
+.circle-keys-two {
+  animation-delay: 0.3s;
+}
+
+.circle-keys-three {
+  animation-delay: 0.6s;
+}
+
+.circle-keys-four {
+  animation-delay: 0.9s;
+}
+
+.dot-keys {
+  animation: 2s ease-in-out infinite;
+  animation-name: dot-keys;
+  transform: translate(-50%, -50%);
+}
+.dot-keys-two {
+  animation-delay: 0.3s;
+}
+
+.dot-keys-three {
+  animation-delay: 0.6s;
+}
+
+.dot-keys-four {
+  animation-delay: 0.9s;
+}
+
+@keyframes circle-keys {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes dot-keys {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px hsla(0, 0%, 87%, 0.363);
+  }
+
+  50% {
+    transform: scale(0);
+    box-shadow: 0 0 20px transparent;
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px hsla(0, 0%, 87%, 0.363);
+  }
+}
+
+/* .avatar:hover {
+  background-color: black;
+  opacity: 70%;
+  h3,p {
+    color: white;
+  }
+} */

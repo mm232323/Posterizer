@@ -14,14 +14,14 @@ export default function Login() {
         height={672}
         className="absolute right-0"
       />
-            <Image
+      <Image
         src="/Login/login_img2.png"
         alt="login img"
         width={650}
         height={672}
         className="[@media(min-width:1125px)]:hidden right-0 [@media(max-width:1125px)]:absolute [@media(max-width:772px)]:hidden"
       />
-            <Image
+      <Image
         src="/Login/login_img3.png"
         alt="login img"
         width={650}
@@ -32,6 +32,7 @@ export default function Login() {
         src="/whiteLogo.svg"
         width={183.6}
         height={179.1}
+        alt="login main logo image"
         className="absolute right-[220px] top-[320px]"
       />
       <h1 className="font-[181] text-[70px] absolute right-[190px] top-[500px]">
@@ -76,7 +77,12 @@ export default function Login() {
             height={50}
           />
         </div>
-      <span className="font-[100] cursor-default text-[20px] pl-[60px] block relative top-[50px]">or create <Link href='/signup'><span className="text-[#6BB4BC]">new account</span></Link></span>
+        <span className="font-[100] cursor-default text-[20px] pl-[60px] block relative top-[50px]">
+          or create{" "}
+          <Link href="/signup">
+            <span className="text-[#6BB4BC]">new account</span>
+          </Link>
+        </span>
       </div>
       <Footer />
     </>
