@@ -91,8 +91,9 @@ export async function signin(state, event) {
   user.followed = [];
   user.followers = [];
   user.posts = [];
-  user.nots = [];
-  user.avatar = "";
+  user.nots = { myNots: [], followedNots: [] };
+  user.avatar = {};
+  user.avatarName = "";
   const response = await createUser(user);
   if (response == "THE EMAIL ALREADY EXISTS") {
     errors.email = "the email is already exists";

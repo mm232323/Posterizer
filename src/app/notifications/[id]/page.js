@@ -7,18 +7,24 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { handleDeleteNotif } from "../../../../actions/user-actions";
+import { useRouter } from "next/navigation";
 export default function Notifications({ params }) {
   const [list, setList] = useState("all");
   const [nots, setNots] = useState(null);
+  const [avatar, setAvatar] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     async function fetchNots() {
       const response = await fetch(
-        `http://localhost:8080/user/${params.id}`,
+        `http://localhost:8080/user/notifications/${params.id}`,
         {}
       );
-      if (!response.ok) redirect("/");
-      const { nots } = await response.json();
+      if (!response.ok) {
+        router.push("/");
+      }
+      const res = await response.json();
+      const nots = JSON.parse(res);
       setNots(nots);
     }
     setIsLoading(true);
@@ -26,19 +32,63 @@ export default function Notifications({ params }) {
     setIsLoading(false);
   }, []);
 
-  let handleClick = (notId) => {
-    handleDeleteNotif(notId, params.id);
-    setNots((prevNots) => {
-      return prevNots.filter((notif) => notif.id !== notId);
-    });
+  let handleClick = (notId, type) => {
+    handleDeleteNotif(type, notId, params.id);
+    if (type == "me")
+      setNots((prevNots) => {
+        return {
+          myNots: prevNots.myNots.filter((notif) => notif.id !== notId),
+          followedNots: prevNots.followedNots,
+        };
+      });
+    else if (type == "followed")
+      setNots((prevNots) => {
+        return {
+          myNots: prevNots.myNots,
+          followedNots: prevNots.followedNots.filter(
+            (notif) => notif.id !== notId
+          ),
+        };
+      });
   };
 
   const selectList = (name) => {
-    console.log(name);
+    setList((prevType) => name);
   };
+  const myNots = nots?.myNots?.map((notification, idx) => (
+    <NotifMessage
+      id={params.id}
+      key={idx}
+      notId={notification.id}
+      notif={notification}
+      onRemoveNot={handleClick}
+      notType="me"
+    />
+  ));
+  const followedNots = nots?.followedNots?.map((notification, idx) => (
+    <NotifMessage
+      id={params.id}
+      key={idx}
+      notId={notification.id}
+      notif={notification}
+      onRemoveNot={handleClick}
+      notType="followed"
+    />
+  ));
+  let resultingNots;
+  console.log(nots);
+  if (list == "all")
+    resultingNots = (
+      <>
+        {myNots}
+        {followedNots}
+      </>
+    );
+  else if (list == "my-posts") resultingNots = myNots;
+  else resultingNots = followedNots;
   return (
     <>
-      <Header isAuth={true} id={params.id} />
+      <Header isAuth={true} id={params.id} avatar={avatar} />
       <center>
         <Image
           src="/Notifications/head_title.png"
@@ -48,14 +98,11 @@ export default function Notifications({ params }) {
           className="relative top-[70px] mb-[70px]"
         />
       </center>
-      <motion.div
-        layout
-        className="flex items-center relative justify-center flex-col"
-      >
+      <motion className="flex items-center relative justify-center flex-col">
         <center>
           <FilterButtons onSelectList={selectList} />
           {isLoading && <LoadingIndicator />}
-          {!nots?.length && (
+          {!nots?.myNots?.length && !nots?.followedNots?.length && (
             <>
               <p className="font-[200] text-[20px] pt-[40px] opacity-70">
                 no notifications found.
@@ -66,21 +113,16 @@ export default function Notifications({ params }) {
                 className="w-[400px] h-[400px] opacity-20 grayscale-[1] brightness-[1.2]"
                 width={640}
                 height={640}
+                unoptimized
               />
             </>
           )}
         </center>
-        {nots?.length &&
-          nots.map((notification, idx) => (
-            <NotifMessage
-              id={params.id}
-              key={idx}
-              notId={notification.id}
-              notif={notification}
-              onRemoveNot={handleClick}
-            />
-          ))}
-      </motion.div>
+        <motion.div layout>
+          {(nots?.myNots?.length || nots?.followedNots?.length) &&
+            resultingNots}
+        </motion.div>
+      </motion>
     </>
   );
 }

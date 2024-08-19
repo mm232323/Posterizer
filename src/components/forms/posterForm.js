@@ -16,7 +16,6 @@ export default function PosterForm({ id }) {
   }
   function addImage() {
     setSelectedFile((prevFile) => imageRef.current.files[0]);
-    console.log(selectedFile);
     const file = imageRef.current.files[0];
     const reader = new FileReader();
     reader.onloadstart = () => {

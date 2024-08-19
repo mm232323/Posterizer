@@ -1,5 +1,6 @@
 "use server";
 
+import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -8,11 +9,11 @@ export async function addPoster(state, event) {
   const title = event.get("title");
   const post_text = event.get("post_text");
   const id = event.get("userId");
-  let img = event.get("img");
+  let img = event.get("imageSelect");
   if (title.trim().length < 5) errors.push("title");
   if (post_text.trim().length < 10) errors.push("post_text");
   if (errors.length > 0) return { errors };
-  const post = { title, post_text, img, id };
+  const post = { title, post_text, img, imgName: img.name, id };
   post.views = 0;
   post.reactions = 0;
   post.comments = [];
@@ -24,6 +25,12 @@ export async function addPoster(state, event) {
       "Content-Type": "application/json",
     },
   });
+  const data = new FormData();
+  data.append("image", img);
+  const resMessage = await axios.post(
+    `http://localhost:8080/user/poster/${id}`,
+    data
+  );
   revalidatePath("/");
   redirect(`/home/${id}`);
 }
@@ -44,23 +51,17 @@ export async function handleFollow(state, event) {
   });
   revalidatePath("/");
 }
-export async function addAvatar(state, event) {
-  const avatar = event.get("avatar");
-  const id = event.get("id");
-  const data = new FormData();
-  data.append("image", avatar);
-  const response = await fetch("http://localhost:8080/user/add-avatar", {
-    method: "POST",
-    body: data,
-  });
-}
 
-export async function handleDeleteNotif(notificationId, userId) {
+export async function handleDeleteNotif(
+  notificationType,
+  notificationId,
+  userId
+) {
   const response = await fetch(
     `http://localhost:8080/user/delete-notification/${userId}`,
     {
       method: "POST",
-      body: JSON.stringify({ id: notificationId }),
+      body: JSON.stringify({ id: notificationId, type: notificationType }),
       headers: {
         "Content-Type": "application/json",
       },

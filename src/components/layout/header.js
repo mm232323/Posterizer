@@ -5,7 +5,22 @@ import NavLink from "../ui/navLink";
 import { GrAdd } from "react-icons/gr";
 import { logout } from "../../../actions/auth-actions";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { revalidatePath } from "next/cache";
 export default function Header({ size, isAuth, id }) {
+  const [avatar, setAvatar] = useState("");
+  useEffect(() => {
+    async function getAvatar() {
+      if (isAuth) {
+        const response = await fetch(`http://localhost:8080/user/avatar/${id}`);
+        const resData = await response.json();
+        const avatarRes = JSON.parse(resData).avatar;
+        setAvatar(avatarRes);
+        console.log(avatar);
+      }
+    }
+    getAvatar();
+  });
   const path = usePathname();
   if (size == "small") {
     return (
@@ -133,12 +148,16 @@ export default function Header({ size, isAuth, id }) {
           </button>
           <Link href={`/profile/${id}`}>
             <Image
-              src="/Header/man.png"
+              src={
+                !avatar
+                  ? "/Header/man.png"
+                  : `http://localhost:8080/avatars/${avatar}`
+              }
               alt="avatar"
               width={520}
               height={520}
               className={`rounded-full border-[1px] w-[55px] h-[55px] relative left-[380px] top-[-50%] translate-y-[50%] duration-300 ${
-                path.includes("profile")
+                path.includes("profile") && path.endsWith(id)
                   ? "border-blue-600 cursor-default"
                   : "border-white hover:scale-105 cursor-pointer"
               }`}

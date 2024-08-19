@@ -1,4 +1,5 @@
 import axios from "axios";
+import { revalidatePath } from "next/cache";
 import React from "react";
 export default function Avatar({ id }) {
   async function submitAvatar(event) {
@@ -11,6 +12,7 @@ export default function Avatar({ id }) {
       `http://localhost:8080/user/add-avatar/${id}`,
       data
     );
+    revalidatePath("/");
   }
   return (
     <div className="w-[293px] bg-black/70 h-[293px] opacity-0 hover:opacity-100 duration-400 cursor-pointer avatar absolute rounded-full top-[196px] left-[158.5px]">
