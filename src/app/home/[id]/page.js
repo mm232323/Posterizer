@@ -8,16 +8,14 @@ import React from "react";
 export default async function Home({ params }) {
   const user = await fetch(`http://localhost:8080/user/${params.id}`, {
     headers: { "Content-Type": "application/json" },
-    next: { revalidate: 0 },
+    next: { revalidate: 0, tags: ["post-update"] },
   });
   if (!user.ok) redirect("/");
-  let { name, posts, avatarName, phone, views, followers, followed } =
-    await user.json();
+  let { avatarName, views, followers, followed } = await user.json();
   let allPosts = await fetch("http://localhost:8080/user/posts");
   if (!allPosts.ok) redirect("/");
   allPosts = await allPosts.json();
   allPosts = allPosts.posts;
-  console.log(allPosts);
   return (
     <>
       <Header isAuth={true} id={params.id} />
@@ -74,7 +72,7 @@ export default async function Home({ params }) {
         </div>
       </div>
       {allPosts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} id={params.id} />
       ))}
     </>
   );

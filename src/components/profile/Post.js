@@ -22,8 +22,9 @@ export default function Post({ post }) {
       <div className="relative w-[180px]  h-[180px] left-[30px] top-[18px] overflow-hidden rounded-[10px]">
         <Image
           src={`http://localhost:8080/uploads/${post.imgName}`}
-          fill
-          className="h-auto"
+          width={5000}
+          height={5000}
+          className="h-[180px] w-auto"
         />
       </div>
       <h1 className="relative font-[469] text-[47px] pt-[10px] pl-[240px] top-[-177px]">
@@ -36,7 +37,7 @@ export default function Post({ post }) {
         Views {post.views}
       </span>
       <span className="font-[80] opacity-90 mr-[10px] text-[12px] relative pl-[20px] top-[-160px] left-[220px]">
-        Comments {post.comments}
+        Comments {post.comments.length}
       </span>
       <span className="font-[80] opacity-90 mr-[10px] text-[12px] relative pl-[20px] top-[-160px] left-[220px]">
         Reactions {post.reactions}

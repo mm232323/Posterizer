@@ -1,7 +1,7 @@
 "use server";
 
 import axios from "axios";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function addPoster(state, event) {
@@ -69,4 +69,28 @@ export async function handleDeleteNotif(
   );
   const resMessage = await response.json();
   revalidatePath("/");
+}
+
+export async function handleLike(userId, likerId, postId) {
+  const details = { userId, likerId, postId };
+  const response = await fetch("http://localhost:8080/user/like-post", {
+    method: "POST",
+    body: JSON.stringify(details),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log("done");
+}
+export async function handleComment(event) {
+  const data = Object.fromEntries(event);
+  const comment = event.get("comment");
+  if (comment.length <= 5) return;
+  const response = await fetch("http://localhost:8080/user/add-comment", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }

@@ -18,6 +18,7 @@ export default async function Followed({ id, followId }) {
               ? "/Header/man.png"
               : `http://localhost:8080/avatars/${avatarName}`
           }
+          alt="followed img"
           width={1000}
           height={1000}
           className="rounded-full w-[70px] h-[70px] "

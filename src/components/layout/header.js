@@ -127,19 +127,19 @@ export default function Header({ size, isAuth, id }) {
               contact
             </h1>
           </NavLink>
-          <Link href={`/poster/${id}`}>
-            {path.includes("poster") && (
-              <button className="relative text-[20px] mr-[100px] top-1/2 translate-y-[-50%] font-[169] p-[15px] rounded-[3px] bg-gradient-to-r from-[#07ABCF] to-[#521F93] duration-400 border-[.3px] cursor-default border-transparent border-b-white">
-                Add Poster
-              </button>
-            )}
-            {!path.includes("poster") && (
-              <button className="relative text-[20px] mr-[100px] top-1/2 translate-y-[-50%] font-[169] p-[15px] rounded-[3px] border-transparent bg-gradient-to-r from-[#07ABCF] to-[#521F93] duration-400 hover:border-white border-[.3px] border-r-0">
+          {path.includes("poster") && (
+            <button className="relative text-[20px] mr-[100px] top-1/2 translate-y-[-50%] font-[169] p-[15px] rounded-[3px] bg-gradient-to-r from-[#07ABCF] to-[#521F93] duration-400 border-[.3px] cursor-default border-transparent border-b-white border-r-0">
+              Add Poster
+            </button>
+          )}
+          {!path.includes("poster") && (
+            <Link href={`/poster/${id}`}>
+              <button className="relative text-[20px] mr-[100px] top-1/2 translate-y-[-50%] font-[169] p-[15px] rounded-[3px] border-transparent bg-gradient-to-r from-[#07ABCF] to-[#521F93] duration-400 hover:border-white border-[.3px] border-r-0 hover:border-r-1">
                 <GrAdd color="white" size={17} className="mr-[10px] inline" />{" "}
                 Add Poster
               </button>
-            )}
-          </Link>
+            </Link>
+          )}
           <button
             onClick={() => logout(id)}
             className="w-[96px] [@media(max-width:565px)]:w-[66px] [@media(max-width:500px)]:w-[55.75px] h-[44px] [@media(max-width:565px)]:h-[34px] [@media(max-width:500px)]:h-[30px] [@media(max-width:565px)]:rounded-[4px] [@media(max-width:565px)]:text-[16px] [@media(max-width:500px)]:text-[11.5px] border-white/60 border-[.5px] rounded-[8px] relative left-[150px] [@media(max-width:700px)]:left-[100px] [@media(max-width:665px)]:left-[70px] mr-[20px] font-[146] text-[20px] top-[32px] hover:bg-[#9CDFD0] hover:text-[#010511] duration-[.4s] [@media(max-width:500px)]:left-[50px] [@media(max-width:500px)]:top-[19px] "

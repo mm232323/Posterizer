@@ -91,6 +91,7 @@ export async function signin(state, event) {
   user.followed = [];
   user.followers = [];
   user.posts = [];
+  user.likes = [];
   user.nots = { myNots: [], followedNots: [] };
   user.avatar = {};
   user.avatarName = "";
