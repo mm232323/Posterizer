@@ -21,7 +21,7 @@ export default function Post({ post }) {
     >
       <div className="relative w-[180px]  h-[180px] left-[30px] top-[18px] overflow-hidden rounded-[10px]">
         <Image
-          src={`http://localhost:8080/uploads/${post.imgName}`}
+          src={`http://${process.env.API}/uploads/${post.imgName}`}
           width={5000}
           height={5000}
           className="h-[180px] w-auto"

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { simpleHash } from "./user";
 import { revalidatePath } from "next/cache";
 export async function createUser(user) {
-  const checkRes = await fetch("http://localhost:8080/signup/check-user", {
+  const checkRes = await fetch(`http://${process.env.API}/signup/check-user`, {
     method: "POST",
     body: JSON.stringify({ email: user.email }),
     headers: {
@@ -14,7 +14,7 @@ export async function createUser(user) {
   const resData = await checkRes.json();
   const isExisting = JSON.parse(resData).isExisting;
   if (isExisting) return "THE EMAIL ALREADY EXISTS";
-  const userRes = await fetch("http://localhost:8080/signup/create-user", {
+  const userRes = await fetch(`http://${process.env.API}/signup/create-user`, {
     method: "POST",
     body: JSON.stringify(user),
     headers: {
@@ -35,7 +35,7 @@ export async function createSession(user, hashId) {
     password: user.password,
     id: simpleHash(hashId),
   };
-  await fetch("http://localhost:8080/signup/create-session", {
+  await fetch(`http://${process.env.API}/signup/create-session`, {
     method: "POST",
     body: JSON.stringify(sessionData),
     headers: {

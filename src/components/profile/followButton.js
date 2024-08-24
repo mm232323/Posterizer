@@ -1,11 +1,7 @@
 "use client";
 import React from "react";
-import {
-  handleFollow,
-  validateAllQueries,
-} from "../../../actions/user-actions";
+import { handleFollow } from "../../../actions/user-actions";
 import { useFormState } from "react-dom";
-import { revalidatePath } from "next/cache";
 export default function FollowButton({ follower, followed, isFollowed }) {
   const [state, action] = useFormState(handleFollow);
   return (

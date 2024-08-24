@@ -6,7 +6,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 export default async function UserProfile({ params }) {
   revalidatePath("/");
-  const response = await fetch(`http://localhost:8080/user/${params.id}`, {
+  const response = await fetch(`http://${process.env.API}/user/${params.id}`, {
     headers: { "Content-Type": "application/json" },
     next: { revalidate: 0 },
   });
@@ -25,7 +25,7 @@ export default async function UserProfile({ params }) {
             src={
               !avatarName
                 ? "/Header/man.png"
-                : `http://localhost:8080/avatars/${avatarName}`
+                : `http://${process.env.API}/avatars/${avatarName}`
             }
             width={520}
             height={520}

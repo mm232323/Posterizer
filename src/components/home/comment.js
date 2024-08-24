@@ -12,7 +12,7 @@ export default function Comment({ comment, userId }) {
   useEffect(() => {
     const getCommenter = async () => {
       const response = await fetch(
-        `http://localhost:8080/user/${comment.commenter}`
+        `http://${process.env.API}/user/${comment.commenter}`
       );
       const commentor = await response.json();
       setCommenter(commentor);
@@ -45,7 +45,7 @@ export default function Comment({ comment, userId }) {
           <Image
             src={
               commenter.avatarName
-                ? `http://localhost:8080/avatars/${commenter.avatarName}`
+                ? `http://${process.env.API}/avatars/${commenter.avatarName}`
                 : "/Header/man.png"
             }
             alt="comment avatar"

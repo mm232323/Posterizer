@@ -12,7 +12,9 @@ export default function Header({ size, isAuth, id }) {
   useEffect(() => {
     async function getAvatar() {
       if (isAuth) {
-        const response = await fetch(`http://localhost:8080/user/avatar/${id}`);
+        const response = await fetch(
+          `http://${process.env.API}/user/avatar/${id}`
+        );
         const resData = await response.json();
         const avatarRes = JSON.parse(resData).avatar;
         setAvatar(avatarRes);
@@ -151,7 +153,7 @@ export default function Header({ size, isAuth, id }) {
               src={
                 !avatar
                   ? "/Header/man.png"
-                  : `http://localhost:8080/avatars/${avatar}`
+                  : `http://${process.env.API}/avatars/${avatar}`
               }
               alt="avatar"
               width={520}

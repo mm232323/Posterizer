@@ -17,7 +17,7 @@ export default function Notifications({ params }) {
   useEffect(() => {
     async function fetchNots() {
       const response = await fetch(
-        `http://localhost:8080/user/notifications/${params.id}`,
+        `http://${process.env.API}/user/notifications/${params.id}`,
         {}
       );
       if (!response.ok) {

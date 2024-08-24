@@ -9,7 +9,7 @@ export default function Avatar({ id }) {
     const avatar = event.get("avatar");
     data.append("image", avatar);
     const response = await axios.post(
-      `http://localhost:8080/user/add-avatar/${id}`,
+      `http://${process.env.API}/user/add-avatar/${id}`,
       data
     );
     revalidatePath("/");

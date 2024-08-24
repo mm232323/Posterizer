@@ -4,11 +4,14 @@ import Image from "next/image";
 import FollowButton from "@/components/profile/followButton";
 import Post from "@/components/profile/Post";
 export default async function AnotherUserProfile({ params }) {
-  const response1 = await fetch(`http://localhost:8080/user/${params.id2}`, {
-    headers: { "Content-Type": "application/json" },
-    next: { revalidate: 0 },
-  });
-  const response2 = await fetch(`http://localhost:8080/user/${params.id}`, {
+  const response1 = await fetch(
+    `http://${process.env.API}/user/${params.id2}`,
+    {
+      headers: { "Content-Type": "application/json" },
+      next: { revalidate: 0 },
+    }
+  );
+  const response2 = await fetch(`http://${process.env.API}/user/${params.id}`, {
     headers: { "Content-Type": "application/json" },
   });
   let user = await response2.json();
@@ -27,7 +30,7 @@ export default async function AnotherUserProfile({ params }) {
             src={
               !avatarName
                 ? "/Header/man.png"
-                : `http://localhost:8080/avatars/${avatarName}`
+                : `http://${process.env.API}/avatars/${avatarName}`
             }
             width={520}
             height={520}

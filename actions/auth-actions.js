@@ -28,7 +28,7 @@ export async function sendMessage(state, event) {
   if (gender != "on") errors.push("gender");
   if (message.trim().length < 5) errors.push("message");
   if (errors.length > 0) return { errors };
-  let response = await fetch("http://localhost:8080/contact/add-message", {
+  let response = await fetch(`http://${process.env.API}/contact/add-message`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -113,7 +113,7 @@ export async function login(state, formData) {
   const hashId = email + password + email.split("").reverse();
   const id = simpleHash(hashId);
   const response = await fetch(
-    `http://localhost:8080/login/create-session/${id}`,
+    `http://${process.env.API}/login/create-session/${id}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -126,9 +126,12 @@ export async function login(state, formData) {
 }
 export async function logout(userId) {
   console.log(userId);
-  const response = await fetch(`http://localhost:8080/user/logout/${userId}`, {
-    headers: { "Content-Type": "application/json" },
-  });
+  const response = await fetch(
+    `http://${process.env.API}/user/logout/${userId}`,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
   revalidatePath("/");
   redirect("/");
 }

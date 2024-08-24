@@ -41,7 +41,7 @@ export default function Post({ post, id }) {
               src={
                 !avatarName
                   ? "/Header/man.png"
-                  : `http://localhost:8080/avatars/${avatarName}`
+                  : `http://${process.env.API}/avatars/${avatarName}`
               }
               width={1000}
               height={1000}
@@ -78,7 +78,7 @@ export default function Post({ post, id }) {
           <Image
             width={1000}
             height={1000}
-            src={`http://localhost:8080/uploads/${post.imgName}`}
+            src={`http://${process.env.API}/uploads/${post.imgName}`}
             alt="post image"
             className="rounded-[6px]"
           />

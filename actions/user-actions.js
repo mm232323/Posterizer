@@ -18,7 +18,7 @@ export async function addPoster(state, event) {
   post.reactions = 0;
   post.comments = [];
   post.date = new Date().toDateString();
-  let response = await fetch(`http://localhost:8080/user/post`, {
+  let response = await fetch(`http://${process.env.API}/user/post`, {
     method: "POST",
     body: JSON.stringify(post),
     headers: {
@@ -28,7 +28,7 @@ export async function addPoster(state, event) {
   const data = new FormData();
   data.append("image", img);
   const resMessage = await axios.post(
-    `http://localhost:8080/user/poster/${id}`,
+    `http://${process.env.API}/user/poster/${id}`,
     data
   );
   revalidatePath("/");
@@ -38,7 +38,7 @@ export async function handleFollow(state, event) {
   const follower = event.get("follower");
   const followed = event.get("followed");
   const isFollowed = event.get("is_follow");
-  const response = await fetch("http://localhost:8080/user/following", {
+  const response = await fetch(`http://${process.env.API}/user/following`, {
     method: "POST",
     body: JSON.stringify({
       followerId: follower,
@@ -58,7 +58,7 @@ export async function handleDeleteNotif(
   userId
 ) {
   const response = await fetch(
-    `http://localhost:8080/user/delete-notification/${userId}`,
+    `http://${process.env.API}/user/delete-notification/${userId}`,
     {
       method: "POST",
       body: JSON.stringify({ id: notificationId, type: notificationType }),
@@ -73,7 +73,7 @@ export async function handleDeleteNotif(
 
 export async function handleLike(userId, likerId, postId) {
   const details = { userId, likerId, postId };
-  const response = await fetch("http://localhost:8080/user/like-post", {
+  const response = await fetch(`http://${process.env.API}/user/like-post`, {
     method: "POST",
     body: JSON.stringify(details),
     headers: {
@@ -86,7 +86,7 @@ export async function handleComment(event) {
   const data = Object.fromEntries(event);
   const comment = event.get("comment");
   if (comment.length <= 5) return;
-  const response = await fetch("http://localhost:8080/user/add-comment", {
+  const response = await fetch(`http://${process.env.API}/user/add-comment`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

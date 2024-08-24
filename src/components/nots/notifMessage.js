@@ -38,7 +38,7 @@ export default function NotifMessage({ notif, notId, onRemoveNot, notType }) {
       <Image
         src={
           notif.avatar.originalname
-            ? `http://localhost:8080/avatars/${notif.avatar.originalname}`
+            ? `http://${process.env.API}/avatars/${notif.avatar.originalname}`
             : "/Header/man.png"
         }
         className="rounded-full w-[90px] h-[90px] ml-[40px] mt-[25px] inline"

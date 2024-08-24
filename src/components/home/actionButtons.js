@@ -20,7 +20,9 @@ export default function ActionButtons({
   useEffect(() => {
     const getLiker = async () => {
       if (userId == viewerId) return;
-      const response = await fetch(`http://localhost:8080/user/${viewerId}`);
+      const response = await fetch(
+        `http://${process.env.API}/user/${viewerId}`
+      );
       const liker = await response.json();
       const like = liker.likes.filter(
         (like) => like.user === userId && like.postId === postId

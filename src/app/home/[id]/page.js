@@ -6,13 +6,13 @@ import Link from "next/link";
 import React from "react";
 
 export default async function Home({ params }) {
-  const user = await fetch(`http://localhost:8080/user/${params.id}`, {
+  const user = await fetch(`http://${process.env.API}/user/${params.id}`, {
     headers: { "Content-Type": "application/json" },
     next: { revalidate: 0, tags: ["post-update"] },
   });
   if (!user.ok) redirect("/");
   let { avatarName, views, followers, followed } = await user.json();
-  let allPosts = await fetch("http://localhost:8080/user/posts");
+  let allPosts = await fetch(`http://${process.env.API}/user/posts`);
   if (!allPosts.ok) redirect("/");
   allPosts = await allPosts.json();
   allPosts = allPosts.posts;
@@ -25,7 +25,7 @@ export default async function Home({ params }) {
             src={
               !avatarName
                 ? "/Header/man.png"
-                : `http://localhost:8080/avatars/${avatarName}`
+                : `http://${process.env.API}/avatars/${avatarName}`
             }
             alt="avatar"
             width={1000}
