@@ -40,19 +40,19 @@ export default function UserAbout({ params }) {
         </h1>
         <div className="flex [@media(max-width:650px)]:flex-col gap-[50px] relative top-[50px] [@media(max-width:650px)]:top-[40px] left-1/2 translate-x-[-47%]">
           <Leader
-            imageUrl="/about/leader1.png"
+            imageUrl="/About/leader1.png"
             name="Marty Leo"
             jobTitle="posterizer safety manager"
             size="employee"
           />
           <Leader
-            imageUrl="/about/leader2.png"
+            imageUrl="/About/leader2.png"
             name="James Kavin"
             jobTitle="main posterizer manager"
             size="manager"
           />
           <Leader
-            imageUrl="/about/leader3.png"
+            imageUrl="/About/leader3.png"
             name="Adam Shao"
             jobTitle="posterizer development manager"
             size="employee"
