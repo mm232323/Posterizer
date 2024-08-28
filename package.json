@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
+    "@next/env": "^14.2.6",
     "@nextui-org/radio": "^2.1.2",
     "@nextui-org/system": "^2.2.2",
     "@nextui-org/theme": "^2.2.6",
@@ -18,7 +19,7 @@
     "bcrypt": "^5.1.1",
     "deep-email-validator": "^0.1.21",
     "jose": "^5.6.3",
-    "next": "^14.0.3",
+    "next": "^14.2.6",
     "openssl": "^2.0.0",
     "password-validator": "^5.3.0",
     "react": "^18.3.1",

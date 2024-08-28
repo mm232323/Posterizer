@@ -11,7 +11,9 @@ export default function Post({ post, id }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`http://localhost:8080/user/${post.id}`);
+      const response = await fetch(`http://localhost:8080/user/${post.id}`, {
+        cache: "force-cache",
+      });
       const userData = await response.json();
       setUser(userData);
       setComments(post.comments);
@@ -41,7 +43,7 @@ export default function Post({ post, id }) {
               src={
                 !avatarName
                   ? "/Header/man.png"
-                  : `http://${process.env.API}/avatars/${avatarName}`
+                  : `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${avatarName}`
               }
               width={1000}
               height={1000}
@@ -74,15 +76,17 @@ export default function Post({ post, id }) {
         <p className="text-[20px] font-[150] pt-[10px] pl-[20px] mb-[15px]">
           {post.post_text}
         </p>
-        <div className="w-[500px] rounded-[6px] overflow-x-hidden ml-[20px] mb-[20px]">
-          <Image
-            width={1000}
-            height={1000}
-            src={`http://${process.env.API}/uploads/${post.imgName}`}
-            alt="post image"
-            className="rounded-[6px]"
-          />
-        </div>
+        {post.imgName !== undefined && (
+          <div className="w-[500px] rounded-[6px] overflow-x-hidden ml-[20px] mb-[20px]">
+            <Image
+              width={1000}
+              height={1000}
+              src={`http://${process.env.NEXT_PUBLIC_PUBLICAPI}/uploads/${post.imgName}`}
+              alt="post image"
+              className="rounded-[6px]"
+            />
+          </div>
+        )}
         <div className="flex gap-[15px] items-center pl-[20px] opacity-70 mb-[30px]">
           <p className="text-[11.5px] font-[120]">views</p>
           <p className="text-[11.5px] font-[120]">{post.views}</p>

@@ -6,7 +6,7 @@ import Review from "@/components/about/review";
 import Footer from "@/components/layout/footer";
 export default function UserAbout({ params }) {
   return (
-    <main className="">
+    <main className="selection:bg-white selection:text-black">
       <Image
         className="absolute left-0 top-0 h-[3500px]"
         width={1865}

@@ -6,10 +6,9 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 export default async function UserProfile({ params }) {
   revalidatePath("/");
-  const response = await fetch(`http://${process.env.API}/user/${params.id}`, {
-    headers: { "Content-Type": "application/json" },
-    next: { revalidate: 0 },
-  });
+  const response = await fetch(
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/${params.id}`
+  );
   if (!response.ok) redirect("/");
   let { name, posts, choosen_gender, avatarName, phone, views, followers } =
     await response.json();
@@ -17,15 +16,15 @@ export default async function UserProfile({ params }) {
   name2[1] = name2[1][0];
   name2 = name2.join(" ");
   return (
-    <main className="">
+    <main className="selection:bg-white selection:text-black">
       <Header size="large" isAuth={true} id={params.id} avatar={avatarName} />
       <div className="p-[40px] grid grid-rows-1 grid-cols-2">
-        <div className="w-[529px] h-[800px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[30px]">
+        <div className="w-[529px] h-[800px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[12px] border-white/15 border-1">
           <Image
             src={
               !avatarName
                 ? "/Header/man.png"
-                : `http://${process.env.API}/avatars/${avatarName}`
+                : `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${avatarName}`
             }
             width={520}
             height={520}
@@ -57,15 +56,15 @@ export default async function UserProfile({ params }) {
             Followers: {followers.length}
           </p>
         </div>
-        <div className="w-[752px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[30px] relative left-[-100px] p-[30px] pl-[40px]">
+        <div className="w-[752px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[12px] relative left-[-100px] p-[30px] pl-[40px] border-white/15 border-1">
           <h1 className="text-[45px] font-[469]">Shared Posts</h1>
-          {posts.length == 0 && (
+          {posts.length == 0 ? (
             <p className="font-[100] text-[23px] pt-[10px] opacity-60">
               You havn't post any posts
             </p>
+          ) : (
+            posts.map((post, idx) => <Post key={idx} post={post} />)
           )}
-          {posts.length &&
-            posts.map((post, idx) => <Post key={idx} post={post} />)}
         </div>
       </div>
     </main>

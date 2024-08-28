@@ -10,13 +10,15 @@ export default function PosterForm({ id }) {
   const [selectedImg, setSelectedImg] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmited, setIsSubmited] = useState(false);
   const imageRef = useRef();
   function uploadImage() {
     imageRef.current.click();
   }
   function addImage() {
-    setSelectedFile((prevFile) => imageRef.current.files[0]);
     const file = imageRef.current.files[0];
+    if (file.size > 5000000) return;
+    setSelectedFile((prevFile) => imageRef.current.files[0]);
     const reader = new FileReader();
     reader.onloadstart = () => {
       setIsLoading(true);
@@ -26,6 +28,9 @@ export default function PosterForm({ id }) {
       setIsLoading(false);
     };
     reader.readAsDataURL(file);
+  }
+  function handleSubmit() {
+    if (state.errors.length == 0) setIsSubmited(true);
   }
   return (
     <form
@@ -96,6 +101,7 @@ export default function PosterForm({ id }) {
           accept="image/*"
           onChange={addImage}
           type="file"
+          size="5000000"
           ref={imageRef}
           className="hidden"
         />
@@ -113,6 +119,7 @@ export default function PosterForm({ id }) {
         </div>
       )}
       <button
+        onClick={handleSubmit}
         className={`p-[5px] w-[700px] h-[71px] rounded-[2px] text-white font-[100] text-[30px] hover:shadow-[0_7px_20px_0_#1f70b72a] border-1 border-[#ffffff00] duration-[.5s] mt-[30px] ${
           !state.errors
             ? "bg-transparent border-[#3C308F]"

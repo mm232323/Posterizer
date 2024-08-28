@@ -7,9 +7,9 @@ export default function FilterButtons({ onSelectList }) {
     onSelectList(name);
   };
   return (
-    <div className="flex gap-4 mt-[40px]">
+    <div className="flex gap-4 mt-[40px] selection:bg-white selection:text-black">
       <button
-        className={`border-none w-[167px] font-[200] h-[51px] rounded-[4px] ${
+        className={`border-none w-[167px] font-[200] h-[51px] rounded-[4px]  ${
           listName == "my-posts"
             ? "bg-gradient-to-r from-[#46CAF3] to-[#2B98D6] text-white"
             : "bg-white/50 text-[#030B18]"

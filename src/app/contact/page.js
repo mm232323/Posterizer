@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Contact() {
   return (
-    <>
+    <main className="selection:bg-white selection:text-black">
       <Header size="large" isAuth={false} />
       <Image
         src="/Contact/contact_img1.png"
@@ -15,8 +15,20 @@ export default function Contact() {
         height={829}
         className="absolute right-0 [@media(max-width:1125px)]:hidden"
       />
-      <Image src='/Contact/contact_img2.png' alt='contact img' width={419} height={829} className="[@media(min-width:1125px)]:hidden right-0 [@media(max-width:1125px)]:absolute [@media(max-width:772px)]:hidden" />
-      <Image src='/Contact/contact_img3.png' alt='contact img' width={393} height={376} className="[@media(min-width:772px)]:hidden w-full [@media(max-width:772px)]:absolute" />
+      <Image
+        src="/Contact/contact_img2.png"
+        alt="contact img"
+        width={419}
+        height={829}
+        className="[@media(min-width:1125px)]:hidden right-0 [@media(max-width:1125px)]:absolute [@media(max-width:772px)]:hidden"
+      />
+      <Image
+        src="/Contact/contact_img3.png"
+        alt="contact img"
+        width={393}
+        height={376}
+        className="[@media(min-width:772px)]:hidden w-full [@media(max-width:772px)]:absolute"
+      />
       <Image
         src="/whiteLogo.svg"
         width={183.6}
@@ -33,6 +45,6 @@ export default function Contact() {
         <ContactForm />
       </div>
       <Footer />
-    </>
+    </main>
   );
 }

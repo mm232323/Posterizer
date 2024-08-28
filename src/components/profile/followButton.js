@@ -5,7 +5,7 @@ import { useFormState } from "react-dom";
 export default function FollowButton({ follower, followed, isFollowed }) {
   const [state, action] = useFormState(handleFollow);
   return (
-    <form action={action}>
+    <form action={action} className='selection:bg-white selection:text-black'>
       <input
         className="hidden"
         type="text"

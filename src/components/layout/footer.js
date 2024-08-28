@@ -3,7 +3,7 @@ import NavLink from "../ui/navLink";
 import Link from "next/link";
 export default function Footer() {
   return (
-    <div className="width-full h-[320px] border-white border-t-[1px] bg-white/5 [@media(max-width:450px)]:h-[482px]">
+    <div className="width-full h-[320px] border-white border-t-[1px] bg-white/5 [@media(max-width:450px)]:h-[482px] selection:bg-white selection:text-black">
       <center>
         <div className="relative top-[40px]">
           <Link href="/">
@@ -16,12 +16,12 @@ export default function Footer() {
             />
           </Link>
           <div className="flex left-1/2">
-            <NavLink href="/about" type='text'>
+            <NavLink href="/about" type="text">
               <h1 className="font-[181] text-[23px] text-[#A1E5D5] relative inline pr-[30px] top-[4px] left-[80px] hover:opacity-70 duration-[.4s] cursor-pointer [@media(max-width:450px)]:text-[13px] [@media(max-width:450px)]:left-[30px] [@media(max-width:450px)]:pr-[15px] [@media(max-width:450px)]:top-[-3px]">
                 about
               </h1>
             </NavLink>
-            <NavLink href="/contact" type='text'>
+            <NavLink href="/contact" type="text">
               <h1 className="font-[181] text-[23px] text-[#A1E5D5] relative inline top-[4px] left-[80px] hover:opacity-70 duration-[.4s] cursor-pointer [@media(max-width:450px)]:text-[13px] [@media(max-width:450px)]:left-[30px] [@media(max-width:450px)]:top-[-3px]">
                 contact
               </h1>
@@ -53,11 +53,11 @@ export default function Footer() {
           Al-Qalyubia Governorate 6320512
         </p>
         <br className="sm_screen_min" />
-        <NavLink href="/signup" type='btn'>
-            Sign up
+        <NavLink href="/signup" type="btn">
+          Sign up
         </NavLink>
-        <NavLink href="/login" type='btn'>
-            Log in
+        <NavLink href="/login" type="btn">
+          Log in
         </NavLink>
       </center>
     </div>

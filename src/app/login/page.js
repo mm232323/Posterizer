@@ -5,7 +5,7 @@ import LoginForm from "@/components/forms/loginForm";
 import Link from "next/link";
 export default function Login() {
   return (
-    <>
+    <main className="selection:bg-white selection:text-black">
       <Header size="large" isAuth={false} />
       <Image
         src="/Login/login_img1.png"
@@ -85,6 +85,6 @@ export default function Login() {
         </span>
       </div>
       <Footer />
-    </>
+    </main>
   );
 }

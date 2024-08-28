@@ -22,7 +22,7 @@ export default async function AnotherUserProfile({ params }) {
   name[1] = name[1][0];
   name = name.join(" ");
   return (
-    <main className="">
+    <main className="selection:bg-white selection:text-black">
       <Header size="large" isAuth={true} id={params.id} avatar={avatarName} />
       <div className="p-[40px] grid grid-rows-1 grid-cols-2">
         <div className="w-[529px] h-[840px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[30px]">
@@ -67,13 +67,13 @@ export default async function AnotherUserProfile({ params }) {
         </div>
         <div className="w-[752px] bg-gradient-to-bl from-[#4997B0]/5 to-[#1DB6BF]/5 rounded-[30px] relative left-[-100px] p-[30px] pl-[40px]">
           <h1 className="text-[45px] font-[469]">Shared Posts</h1>
-          {posts.length == 0 && (
+          {posts.length == 0 ? (
             <p className="font-[100] text-[23px] pt-[10px] opacity-60">
               You havn't post any posts
             </p>
+          ) : (
+            posts.map((post, idx) => <Post key={idx} post={post} />)
           )}
-          {posts.length &&
-            posts.map((post, idx) => <Post key={idx} post={post} />)}
         </div>
       </div>
     </main>

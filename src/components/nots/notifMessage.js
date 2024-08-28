@@ -19,7 +19,7 @@ export default function NotifMessage({ notif, notId, onRemoveNot, notType }) {
   const formatedReactions = formateNums(notif.reactions);
   return (
     <motion.div
-      className="bg-[#D9D9D9]/10 border-white border-[.3px] w-[700px] h-[142px] rounded-[7px] mt-[40px]"
+      className="bg-[#D9D9D9]/10 border-white border-[.3px] w-[700px] h-[142px] rounded-[7px] mt-[40px] selection:bg-white selection:text-black"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: -10 }}
       exit={{ opacity: 0, x: 40 }}
@@ -38,7 +38,7 @@ export default function NotifMessage({ notif, notId, onRemoveNot, notType }) {
       <Image
         src={
           notif.avatar.originalname
-            ? `http://${process.env.API}/avatars/${notif.avatar.originalname}`
+            ? `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${notif.avatar.originalname}`
             : "/Header/man.png"
         }
         className="rounded-full w-[90px] h-[90px] ml-[40px] mt-[25px] inline"

@@ -7,15 +7,16 @@ export default function Avatar({ id }) {
     const data = new FormData();
     const id = event.get("id");
     const avatar = event.get("avatar");
+    if (avatar.size == 0) return;
     data.append("image", avatar);
     const response = await axios.post(
-      `http://${process.env.API}/user/add-avatar/${id}`,
+      `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/add-avatar/${id}`,
       data
     );
     revalidatePath("/");
   }
   return (
-    <div className="w-[293px] bg-black/70 h-[293px] opacity-0 hover:opacity-100 duration-400 cursor-pointer avatar absolute rounded-full top-[196px] left-[158.5px]">
+    <div className="w-[293px] bg-black/70 h-[293px] opacity-0 hover:opacity-100 duration-400 cursor-pointer avatar absolute rounded-full top-[196px] left-[158.5px] selection:bg-white selection:text-black">
       <h3 className="text-[30px] text-center pt-[100px] duration-400">
         Change avatar
       </h3>

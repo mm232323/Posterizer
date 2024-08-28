@@ -6,19 +6,18 @@ import { GrAdd } from "react-icons/gr";
 import { logout } from "../../../actions/auth-actions";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { revalidatePath } from "next/cache";
 export default function Header({ size, isAuth, id }) {
   const [avatar, setAvatar] = useState("");
+  console.log();
   useEffect(() => {
     async function getAvatar() {
       if (isAuth) {
         const response = await fetch(
-          `http://${process.env.API}/user/avatar/${id}`
+          `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/avatar/${id}`
         );
         const resData = await response.json();
         const avatarRes = JSON.parse(resData).avatar;
         setAvatar(avatarRes);
-        console.log(avatar);
       }
     }
     getAvatar();
@@ -26,7 +25,7 @@ export default function Header({ size, isAuth, id }) {
   const path = usePathname();
   if (size == "small") {
     return (
-      <header className="bg-white/5 w-[842px] [@media(max-width:450px)]:w-[348.62px] h-[116px] [@media(max-width:450px)]:h-[70.03px] border-white/25 border-[.3px] rounded-[11px] [@media(max-width:450px)]:rounded-[6px] relative left-1/2 translate-x-[-50%] top-[45px] [@media(max-width:1025px)]:top-[70px]">
+      <header className="bg-white/5 w-[842px] [@media(max-width:450px)]:w-[348.62px] h-[116px] [@media(max-width:450px)]:h-[70.03px] border-white/25 border-[.3px] rounded-[11px] [@media(max-width:450px)]:rounded-[6px] relative left-1/2 translate-x-[-50%] top-[45px] [@media(max-width:1025px)]:top-[70px] selection:bg-white selection:text-black">
         <Link href="/">
           <Image
             src="/posterizer.svg"
@@ -70,7 +69,7 @@ export default function Header({ size, isAuth, id }) {
   } else if (size == "large" && !isAuth) {
     return (
       <center>
-        <header className="bg-white/5 w-full h-[116px] [@media(max-width:450px)]:h-[70.03px] border-b-white/25 border-b-[.3px] relative">
+        <header className="bg-white/5 w-full h-[116px] [@media(max-width:450px)]:h-[70.03px] border-b-white/25 border-b-[.3px] relative selection:bg-white selection:text-black">
           <Link href="/">
             <Image
               src="/posterizer.svg"
@@ -98,7 +97,7 @@ export default function Header({ size, isAuth, id }) {
   } else {
     return (
       <center>
-        <header className="bg-white/5 w-full h-[116px] [@media(max-width:450px)]:h-[70.03px] border-b-white/25 border-b-[.3px] relative">
+        <header className="bg-white/5 w-full h-[116px] [@media(max-width:450px)]:h-[70.03px] border-b-white/25 border-b-[.3px] relative selection:bg-white selection:text-black">
           <div className="w-[243px] h-[224px] bg-[#1b567594] blur-[550px] absolute left-1/2 translate-x-[-50%]" />
           <Link href="/">
             <Image
@@ -153,7 +152,7 @@ export default function Header({ size, isAuth, id }) {
               src={
                 !avatar
                   ? "/Header/man.png"
-                  : `http://${process.env.API}/avatars/${avatar}`
+                  : `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${avatar}`
               }
               alt="avatar"
               width={520}

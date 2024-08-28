@@ -6,7 +6,7 @@ import React from "react";
 
 export default function UserContact({ params }) {
   return (
-    <>
+    <main className="selection:bg-white selection:text-black">
       <Header size="large" isAuth={true} id={params.id} />
       <Image
         src="/Contact/contact_img1.png"
@@ -45,6 +45,6 @@ export default function UserContact({ params }) {
         <ContactForm />
       </div>
       <Footer />
-    </>
+    </main>
   );
 }

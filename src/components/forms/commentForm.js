@@ -8,12 +8,12 @@ export default function CommentForm({ commenterId, userId, postId, onSubmit }) {
   const commentRef = useRef();
   const [error, setError] = useState("");
   const validateComment = () => {
+    onSubmit({ commenter: commenterId, comment: commentRef.current.value });
     setError((prevErr) =>
       commentRef.current.value.length <= 5
         ? "most be larger than 5 letters"
         : ""
     );
-    onSubmit({ commenter: commenterId, comment: commentRef.current.value });
   };
   const [state, action] = useFormState(handleComment, "");
   return (

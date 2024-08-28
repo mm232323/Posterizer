@@ -12,29 +12,28 @@ export async function sendMessage(state, event) {
   const last_name = event.get("lastName");
   const phone = event.get("phone_number");
   const email = event.get("email");
+  const emailValidate = await validate(email);
   const gender = event.get("gender");
   const message = event.get("message");
   if (first_name.trim().length == 0) errors.push("first_name");
   if (last_name.trim().length == 0) errors.push("last_name");
   if (phone.trim().length !== 11) errors.push("phone");
-  if (
-    !email.includes(".") ||
-    !email.includes("@") ||
-    email.slice(0, email.indexOf("@")).length == 0 ||
-    email.slice(email.indexOf("@") + 1, email.indexOf(".")).length == 0 ||
-    email.slice(email.indexOf(".") + 1).length == 0
-  )
-    errors.push("email");
+  if (!emailValidate.validators.mx.valid) errors.push("email");
   if (gender != "on") errors.push("gender");
   if (message.trim().length < 5) errors.push("message");
   if (errors.length > 0) return { errors };
-  let response = await fetch(`http://${process.env.API}/contact/add-message`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  let response = await fetch(
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/contact/add-message`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const resMessage = await response.json();
+  console.log(resMessage.message);
   redirect("/");
 }
 export async function signin(state, event) {
@@ -113,7 +112,7 @@ export async function login(state, formData) {
   const hashId = email + password + email.split("").reverse();
   const id = simpleHash(hashId);
   const response = await fetch(
-    `http://${process.env.API}/login/create-session/${id}`,
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/login/create-session/${id}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +126,7 @@ export async function login(state, formData) {
 export async function logout(userId) {
   console.log(userId);
   const response = await fetch(
-    `http://${process.env.API}/user/logout/${userId}`,
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/logout/${userId}`,
     {
       headers: { "Content-Type": "application/json" },
     }

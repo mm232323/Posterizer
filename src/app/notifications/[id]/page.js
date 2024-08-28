@@ -17,7 +17,7 @@ export default function Notifications({ params }) {
   useEffect(() => {
     async function fetchNots() {
       const response = await fetch(
-        `http://${process.env.API}/user/notifications/${params.id}`,
+        `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/notifications/${params.id}`,
         {}
       );
       if (!response.ok) {
@@ -87,7 +87,7 @@ export default function Notifications({ params }) {
   else if (list == "my-posts") resultingNots = myNots;
   else resultingNots = followedNots;
   return (
-    <>
+    <div className="selection:bg-white selection:text-black">
       <Header isAuth={true} id={params.id} avatar={avatar} />
       <center>
         <Image
@@ -123,6 +123,6 @@ export default function Notifications({ params }) {
             resultingNots}
         </motion.div>
       </motion>
-    </>
+    </div>
   );
 }

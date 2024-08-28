@@ -5,7 +5,7 @@ import SigninForm from "@/components/forms/signinForm";
 import Link from "next/link";
 export default function Signup() {
   return (
-    <>
+    <div className="selection:bg-white selection:text-black">
       <Header size="large" isAuth={false} />
       <Image
         className="absolute right-0 [@media(max-width:1125px)]:hidden"
@@ -54,6 +54,6 @@ export default function Signup() {
         </span>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }

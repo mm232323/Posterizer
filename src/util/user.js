@@ -1,12 +1,15 @@
 export async function userVerified(email, password) {
-  const response = await fetch(`http://${process.env.API}/login/check-user`, {
-    method: "POST",
-    body: JSON.stringify({ email: email, password: password }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    next: { revalidate: 1 },
-  });
+  const response = await fetch(
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/login/check-user`,
+    {
+      method: "POST",
+      body: JSON.stringify({ email: email, password: password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 1 },
+    }
+  );
   const isvarified = await response.json();
   return isvarified;
 }

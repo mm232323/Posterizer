@@ -3,24 +3,30 @@ import { redirect } from "next/navigation";
 import { simpleHash } from "./user";
 import { revalidatePath } from "next/cache";
 export async function createUser(user) {
-  const checkRes = await fetch(`http://${process.env.API}/signup/check-user`, {
-    method: "POST",
-    body: JSON.stringify({ email: user.email }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    next: { revalidate: 1 },
-  });
+  const checkRes = await fetch(
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/signup/check-user`,
+    {
+      method: "POST",
+      body: JSON.stringify({ email: user.email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 1 },
+    }
+  );
   const resData = await checkRes.json();
   const isExisting = JSON.parse(resData).isExisting;
   if (isExisting) return "THE EMAIL ALREADY EXISTS";
-  const userRes = await fetch(`http://${process.env.API}/signup/create-user`, {
-    method: "POST",
-    body: JSON.stringify(user),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const userRes = await fetch(
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/signup/create-user`,
+    {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const userMessage = await userRes.json();
   return "USER CREATED";
 }
@@ -35,13 +41,16 @@ export async function createSession(user, hashId) {
     password: user.password,
     id: simpleHash(hashId),
   };
-  await fetch(`http://${process.env.API}/signup/create-session`, {
-    method: "POST",
-    body: JSON.stringify(sessionData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  await fetch(
+    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/signup/create-session`,
+    {
+      method: "POST",
+      body: JSON.stringify(sessionData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   revalidatePath("/");
   redirect(`/profile/${sessionData.id}`);
 }
