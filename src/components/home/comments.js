@@ -11,7 +11,7 @@ export default function Comments({ comments, userId }) {
     setToggleComments((prevState) => !prevState);
   };
   return (
-    <div className="relative top-[-220px] mb-[20px]">
+    <div className="relative top-[-270px] mb-[20px]">
       <center>
         <div className="flex gap-[5px] relative left-[50%] translate-x-[-6%] items-center opacity-[70%]">
           <p className="font-[120] cursor-pointer" onClick={handleToggle}>
