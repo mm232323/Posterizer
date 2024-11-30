@@ -12,7 +12,7 @@ export default function Comment({ comment, userId }) {
   useEffect(() => {
     const getCommenter = async () => {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/${comment.commenter}`
+        `${process.env.HOST_SERVER_PORT}/user/${comment.commenter}`
       );
       const commentor = await response.json();
       setCommenter(commentor);
@@ -45,7 +45,7 @@ export default function Comment({ comment, userId }) {
           <Image
             src={
               commenter.avatarName
-                ? `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${commenter.avatarName}`
+                ? `${process.env.HOST_SERVER_PORT}/avatars/${commenter.avatarName}`
                 : "/Header/man.png"
             }
             alt="comment avatar"

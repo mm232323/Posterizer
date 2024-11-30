@@ -22,7 +22,7 @@ export async function addPoster(state, event) {
   post.comments = [];
   post.date = new Date().toDateString();
   let response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/post`,
+    `${process.env.HOST_SERVER_PORT}/user/post`,
     {
       method: "POST",
       body: JSON.stringify(post),
@@ -34,7 +34,7 @@ export async function addPoster(state, event) {
   const data = new FormData();
   data.append("image", img);
   const resMessage = await axios.post(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/poster/${id}`,
+    `${process.env.HOST_SERVER_PORT}/user/poster/${id}`,
     data
   );
   revalidatePath("/");
@@ -45,7 +45,7 @@ export async function handleFollow(state, event) {
   const followed = event.get("followed");
   const isFollowed = event.get("is_follow");
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/following`,
+    `${process.env.HOST_SERVER_PORT}/user/following`,
     {
       method: "POST",
       body: JSON.stringify({
@@ -67,7 +67,7 @@ export async function handleDeleteNotif(
   userId
 ) {
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/delete-notification/${userId}`,
+    `${process.env.HOST_SERVER_PORT}/user/delete-notification/${userId}`,
     {
       method: "POST",
       body: JSON.stringify({ id: notificationId, type: notificationType }),
@@ -83,7 +83,7 @@ export async function handleDeleteNotif(
 export async function handleLike(userId, likerId, postId) {
   const details = { userId, likerId, postId };
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/like-post`,
+    `${process.env.HOST_SERVER_PORT}/user/like-post`,
     {
       method: "POST",
       body: JSON.stringify(details),
@@ -99,7 +99,7 @@ export async function handleComment(event) {
   const comment = event.get("comment");
   if (comment.length <= 5) return;
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/add-comment`,
+    `${process.env.HOST_SERVER_PORT}/user/add-comment`,
     {
       method: "POST",
       body: JSON.stringify(data),

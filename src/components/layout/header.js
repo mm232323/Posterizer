@@ -13,7 +13,7 @@ export default function Header({ size, isAuth, id }) {
     async function getAvatar() {
       if (isAuth) {
         const response = await fetch(
-          `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/avatar/${id}`
+          `${process.env.HOST_SERVER_PORT}/user/avatar/${id}`
         );
         const resData = await response.json();
         const avatarRes = JSON.parse(resData).avatar;
@@ -152,7 +152,7 @@ export default function Header({ size, isAuth, id }) {
               src={
                 !avatar
                   ? "/Header/man.png"
-                  : `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${avatar}`
+                  : `${process.env.HOST_SERVER_PORT}/avatars/${avatar}`
               }
               alt="avatar"
               width={520}

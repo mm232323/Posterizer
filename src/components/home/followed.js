@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 export default async function Followed({ id, followId, followRank }) {
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/${followId}`,
+    `${process.env.HOST_SERVER_PORT}/user/${followId}`,
     {
       headers: { "Content-Type": "application/json" },
       next: { revalidate: 0 },
@@ -24,7 +24,7 @@ export default async function Followed({ id, followId, followRank }) {
           src={
             !followedUser?.avatarName
               ? "/Header/man.png"
-              : `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${followedUser?.avatarName}`
+              : `${process.env.HOST_SERVER_PORT}/avatars/${followedUser?.avatarName}`
           }
           alt="followed img"
           width={1000}

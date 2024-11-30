@@ -7,7 +7,7 @@ import React from "react";
 
 export default async function Home({ params }) {
   const user = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/${params.id}`,
+    `${process.env.HOST_SERVER_PORT}/user/${params.id}`,
     {
       headers: { "Content-Type": "application/json" },
       next: { revalidate: 0, tags: ["post-update"] },
@@ -17,7 +17,7 @@ export default async function Home({ params }) {
   if (!user.ok) redirect("/");
   let userRes = await user.json();
   let allPosts = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/posts`
+    `${process.env.HOST_SERVER_PORT}/user/posts`
   );
   if (!allPosts.ok) redirect("/");
   allPosts = await allPosts.json();
@@ -31,7 +31,7 @@ export default async function Home({ params }) {
             src={
               !userRes.avatarName
                 ? "/Header/man.png"
-                : `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${userRes.avatarName}`
+                : `${process.env.HOST_SERVER_PORT}/avatars/${userRes.avatarName}`
             }
             alt="avatar"
             width={1000}

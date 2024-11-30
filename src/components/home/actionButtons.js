@@ -21,7 +21,7 @@ export default function ActionButtons({
     const getLiker = async () => {
       if (userId == viewerId) return;
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/${viewerId}`
+        `${process.env.HOST_SERVER_PORT}/user/${viewerId}`
       );
       const liker = await response.json();
       const like = liker.likes.filter(

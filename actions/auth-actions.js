@@ -23,7 +23,7 @@ export async function sendMessage(state, event) {
   if (message.trim().length < 5) errors.push("message");
   if (errors.length > 0) return { errors };
   let response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/contact/add-message`,
+    `${process.env.HOST_SERVER_PORT}/contact/add-message`,
     {
       method: "POST",
       body: JSON.stringify(data),
@@ -112,7 +112,7 @@ export async function login(state, formData) {
   const hashId = email + password + email.split("").reverse();
   const id = simpleHash(hashId);
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/login/create-session/${id}`,
+    `${process.env.HOST_SERVER_PORT}/login/create-session/${id}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export async function login(state, formData) {
 export async function logout(userId) {
   console.log(userId);
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/logout/${userId}`,
+    `${process.env.HOST_SERVER_PORT}/user/logout/${userId}`,
     {
       headers: { "Content-Type": "application/json" },
     }

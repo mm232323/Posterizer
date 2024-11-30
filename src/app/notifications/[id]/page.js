@@ -17,7 +17,7 @@ export default function Notifications({ params }) {
   useEffect(() => {
     async function fetchNots() {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/notifications/${params.id}`,
+        `${process.env.HOST_SERVER_PORT}/user/notifications/${params.id}`,
         {}
       );
       if (!response.ok) {

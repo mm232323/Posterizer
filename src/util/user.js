@@ -1,6 +1,6 @@
 export async function userVerified(email, password) {
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/login/check-user`,
+    `${process.env.HOST_SERVER_PORT}/login/check-user`,
     {
       method: "POST",
       body: JSON.stringify({ email: email, password: password }),

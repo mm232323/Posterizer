@@ -10,7 +10,7 @@ export default function Avatar({ id }) {
     if (avatar.size == 0) return;
     data.append("image", avatar);
     const response = await axios.post(
-      `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/add-avatar/${id}`,
+      `${process.env.HOST_SERVER_PORT}/user/add-avatar/${id}`,
       data
     );
     revalidatePath("/");

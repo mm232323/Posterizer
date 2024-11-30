@@ -29,8 +29,9 @@ export default function PosterForm({ id }) {
     };
     reader.readAsDataURL(file);
   }
-  function handleSubmit() {
+  function handleSubmit(event) {
     if (state.errors.length == 0) setIsSubmited(true);
+    event.click();
   }
   return (
     <form
@@ -120,13 +121,14 @@ export default function PosterForm({ id }) {
       )}
       <button
         onClick={handleSubmit}
+        disabled={(event) => isSubmited(event)}
         className={`p-[5px] w-[700px] h-[71px] rounded-[2px] text-white font-[100] text-[30px] hover:shadow-[0_7px_20px_0_#1f70b72a] border-1 border-[#ffffff00] duration-[.5s] mt-[30px] ${
           !state.errors
             ? "bg-transparent border-[#3C308F]"
             : "bg-gradient-to-r from-[#1F71B7] to-[#3C308F] "
         }`}
       >
-        {!state.errors ? "Posting..." : "Post"}
+        {isSubmited ? "Posting..." : "Post"}
       </button>
     </form>
   );

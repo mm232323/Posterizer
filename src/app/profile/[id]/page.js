@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export default async function UserProfile({ params }) {
   revalidatePath("/");
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/user/${params.id}`
+    `${process.env.HOST_SERVER_PORT}/user/${params.id}`
   );
   if (!response.ok) redirect("/");
   let { name, posts, choosen_gender, avatarName, phone, views, followers } =
@@ -24,7 +24,7 @@ export default async function UserProfile({ params }) {
             src={
               !avatarName
                 ? "/Header/man.png"
-                : `http://${process.env.NEXT_PUBLIC_PUBLICAPI}/avatars/${avatarName}`
+                : `${process.env.HOST_SERVER_PORT}/avatars/${avatarName}`
             }
             width={520}
             height={520}
