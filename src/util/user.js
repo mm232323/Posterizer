@@ -23,3 +23,20 @@ export function simpleHash(password) {
   }
   return hash.toString();
 }
+export function complexHash(str) {
+  const prime1 = 31;
+  const prime2 = 37;
+  const prime3 = 41;
+  let hash1 = 0;
+  let hash2 = 1;
+  let hash3 = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash1 = (hash1 * prime1 + char) % 1000000007;
+    hash2 = (hash2 * prime2 + char) % 1000000009;
+    hash3 = (hash3 * prime3 + char) % 1000000021;
+  }
+
+  return `${hash1.toString(16)}${hash2.toString(16)}${hash3.toString(16)}`;
+}

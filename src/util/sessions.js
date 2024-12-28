@@ -1,7 +1,7 @@
-import bcrypt from "bcrypt";
+import { complexHash } from "./user";
 export function createSession(userId) {
   const expiresAt = new Date();
-  const secret_id = bcrypt.hash(userId);
+  const secret_id = complexHash(userId);
   return {
     userId,
     expiresAt: expiresAt.getDate(),

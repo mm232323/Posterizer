@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-export default function Post({ post }) {
+export default function Post({ post, serverHost }) {
   let title = post.title.split("").slice(0, 20).join("");
   if (post.title.split("").length > 20) title += "...";
   let post_text = post.post_text.split("").slice(0, 40).join("");
@@ -22,7 +22,7 @@ export default function Post({ post }) {
       {post.imgName !== undefined ? (
         <div className="relative w-[180px]  h-[180px] left-[30px] top-[18px] overflow-hidden rounded-[10px]">
           <Image
-            src={`${process.env.HOST_SERVER_PORT}/uploads/${post.imgName}`}
+            src={`${serverHost}/uploads/${post.imgName}`}
             width={5000}
             height={5000}
             alt="post image"

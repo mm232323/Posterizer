@@ -63,7 +63,13 @@ export default async function UserProfile({ params }) {
               You havn't post any posts
             </p>
           ) : (
-            posts.map((post, idx) => <Post key={idx} post={post} />)
+            posts.map((post, idx) => (
+              <Post
+                key={idx}
+                post={post}
+                serverHost={process.env.HOST_SERVER_PORT}
+              />
+            ))
           )}
         </div>
       </div>

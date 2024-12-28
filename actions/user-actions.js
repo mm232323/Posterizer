@@ -3,6 +3,20 @@ import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+export async function submitAvatar(event) {
+  const data = new FormData();
+  const id = event.get("id");
+  const avatar = event.get("avatar");
+  if (avatar.size == 0) return;
+  data.append("image", avatar);
+  console.log(data);
+  const response = await axios.post(
+    `${process.env.HOST_SERVER_PORT}/user/add-avatar/${id}`,
+    data
+  );
+  revalidatePath("/");
+}
+
 export async function addPoster(state, event) {
   const errors = [];
   const title = event.get("title");
@@ -15,22 +29,18 @@ export async function addPoster(state, event) {
   const post = { title, post_text, id };
   if (img.name !== "undefined" && img.size <= 5000000) {
     post.img = img;
-    post.imgName = img.name;
   }
   post.views = 0;
   post.reactions = 0;
   post.comments = [];
   post.date = new Date().toDateString();
-  let response = await fetch(
-    `${process.env.HOST_SERVER_PORT}/user/post`,
-    {
-      method: "POST",
-      body: JSON.stringify(post),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  let response = await fetch(`${process.env.HOST_SERVER_PORT}/user/post`, {
+    method: "POST",
+    body: JSON.stringify(post),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const data = new FormData();
   data.append("image", img);
   const resMessage = await axios.post(

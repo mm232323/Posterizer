@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function Header({ size, isAuth, id }) {
   const [avatar, setAvatar] = useState("");
-  console.log();
   useEffect(() => {
     async function getAvatar() {
       if (isAuth) {
@@ -21,7 +20,7 @@ export default function Header({ size, isAuth, id }) {
       }
     }
     getAvatar();
-  });
+  }, [isAuth]);
   const path = usePathname();
   if (size == "small") {
     return (

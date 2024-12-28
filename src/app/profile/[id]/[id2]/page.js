@@ -5,15 +5,18 @@ import FollowButton from "@/components/profile/followButton";
 import Post from "@/components/profile/Post";
 export default async function AnotherUserProfile({ params }) {
   const response1 = await fetch(
-    `http://${process.env.API}/user/${params.id2}`,
+    `${process.env.HOST_SERVER_PORT}/user/${params.id2}`,
     {
       headers: { "Content-Type": "application/json" },
       next: { revalidate: 0 },
     }
   );
-  const response2 = await fetch(`http://${process.env.API}/user/${params.id}`, {
-    headers: { "Content-Type": "application/json" },
-  });
+  const response2 = await fetch(
+    `${process.env.HOST_SERVER_PORT}/user/${params.id}`,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
   let user = await response2.json();
   let isFollowed = user.followed.includes(params.id2);
   let { name, posts, choosen_gender, phone, avatarName, views, followers } =
@@ -30,7 +33,7 @@ export default async function AnotherUserProfile({ params }) {
             src={
               !avatarName
                 ? "/Header/man.png"
-                : `http://${process.env.API}/avatars/${avatarName}`
+                : `${process.env.HOST_SERVER_PORT}/avatars/${avatarName}`
             }
             width={520}
             height={520}
@@ -72,7 +75,13 @@ export default async function AnotherUserProfile({ params }) {
               You havn't post any posts
             </p>
           ) : (
-            posts.map((post, idx) => <Post key={idx} post={post} />)
+            posts.map((post, idx) => (
+              <Post
+                key={idx}
+                post={post}
+                serverHost={process.env.HOST_SERVER_PORT}
+              />
+            ))
           )}
         </div>
       </div>

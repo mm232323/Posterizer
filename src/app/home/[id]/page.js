@@ -16,9 +16,7 @@ export default async function Home({ params }) {
 
   if (!user.ok) redirect("/");
   let userRes = await user.json();
-  let allPosts = await fetch(
-    `${process.env.HOST_SERVER_PORT}/user/posts`
-  );
+  let allPosts = await fetch(`${process.env.HOST_SERVER_PORT}/user/posts`);
   if (!allPosts.ok) redirect("/");
   allPosts = await allPosts.json();
   allPosts = allPosts.posts;
@@ -83,7 +81,12 @@ export default async function Home({ params }) {
         </div>
       </div>
       {allPosts.map((post) => (
-        <Post key={post.id} post={post} id={params.id} />
+        <Post
+          key={post.id}
+          post={post}
+          id={params.id}
+          serverPort={process.env.HOST_SERVER_PORT}
+        />
       ))}
     </>
   );

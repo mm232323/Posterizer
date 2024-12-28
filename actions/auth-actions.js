@@ -37,7 +37,7 @@ export async function sendMessage(state, event) {
   return redirect("/");
 }
 export async function signin(state, event) {
-  const user = Object.fromEntries(event);
+  const user = Object.fromEntries(event.entries());
   const name = event.get("name");
   const phone = event.get("phone");
   const email = event.get("email");
@@ -57,8 +57,7 @@ export async function signin(state, event) {
   if (name.trim().length < 3) errors.name = "enter a valid name";
   if (phone.trim().length !== 11) errors.phone = "enter a valid phone number";
   if (gender !== "on") errors.gender = "please choose a gender";
-  if (!emailValidate.validators.mx.valid)
-    errors.email = "please enter a valid email";
+  if (!emailValidate) errors.email = "please enter a valid email";
   if (!validatePassword(password))
     errors.password =
       "please enter a valid password \n must be (8 <= characters <= 16)";
@@ -85,7 +84,6 @@ export async function signin(state, event) {
     return { errors };
   }
   const hashId = email + password + email.split("").reverse();
-  const id = simpleHash(hashId);
   await createSession(user, hashId);
 }
 

@@ -1,6 +1,5 @@
-import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
-import { simpleHash } from "./user";
+import { complexHash, simpleHash } from "./user";
 import { revalidatePath } from "next/cache";
 export async function createUser(user) {
   const checkRes = await fetch(
@@ -31,7 +30,7 @@ export async function createUser(user) {
   return "USER CREATED";
 }
 export async function createSession(user, hashId) {
-  const hashedId = await bcrypt.hash(hashId, 10);
+  const hashedId = complexHash(hashId);
   const date = new Date().toUTCString();
   const sessionData = {
     hashedId,
@@ -41,16 +40,13 @@ export async function createSession(user, hashId) {
     password: user.password,
     id: simpleHash(hashId),
   };
-  await fetch(
-    `${process.env.HOST_SERVER_PORT}/signup/create-session`,
-    {
-      method: "POST",
-      body: JSON.stringify(sessionData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  await fetch(`${process.env.HOST_SERVER_PORT}/signup/create-session`, {
+    method: "POST",
+    body: JSON.stringify(sessionData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   revalidatePath("/");
   redirect(`/profile/${sessionData.id}`);
 }

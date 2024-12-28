@@ -6,20 +6,19 @@ import { BiSolidLike } from "react-icons/bi";
 import ActionButtons from "./actionButtons";
 import Comments from "./comments";
 import { useState, useEffect } from "react";
-export default function Post({ post, id }) {
+export default function Post({ post, id, serverPort }) {
   const [user, setUser] = useState({ avatarName: "", name: "", followers: 0 });
   const [comments, setComments] = useState([]);
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`http://localhost:8080/user/${post.id}`, {
-        cache: "force-cache",
-      });
+      const response = await fetch(`${serverPort}/user/${post.id}`);
       const userData = await response.json();
       setUser(userData);
       setComments(post.comments);
     };
     getUser();
-  }, []);
+  }, [serverPort]);
+  console.log(user);
   const pushComment = (comment) => {
     setComments((comments) => {
       comments.push(comment);
@@ -30,6 +29,7 @@ export default function Post({ post, id }) {
   name = name.split(" ").slice(0, 2).join(" ");
   const dateDistance =
     Math.floor(new Date() - new Date(post.date)) / 1000 / 60 / 60 / 24;
+
   return (
     <>
       <div className="w-[538px] bg-white/5 border-white/50 border-1 rounded-[5px] relative left-[48.7%] translate-x-[-50%] top-[-260px] mb-[20px] duration-400">
@@ -43,7 +43,7 @@ export default function Post({ post, id }) {
               src={
                 !avatarName
                   ? "/Header/man.png"
-                  : `${process.env.HOST_SERVER_PORT}/avatars/${avatarName}`
+                  : `${serverPort}/avatars/${avatarName}`
               }
               width={1000}
               height={1000}
@@ -81,7 +81,7 @@ export default function Post({ post, id }) {
             <Image
               width={1000}
               height={1000}
-              src={`${process.env.HOST_SERVER_PORT}/uploads/${post.imgName}`}
+              src={`${serverPort}/uploads/${post.imgName}`}
               alt="post image"
               className="rounded-[6px]"
             />
