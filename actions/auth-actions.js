@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { validateEmail, validatePassword } from "../src/util/validators";
 export async function sendMessage(state, event) {
   const errors = [];
-  const data = Object.fromEntries(event);
+  const data = Object.fromEntries(event.entries());
   const first_name = event.get("firstName");
   const last_name = event.get("lastName");
   const phone = event.get("phone_number");
