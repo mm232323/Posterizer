@@ -3,8 +3,7 @@ import { redirect } from "next/navigation";
 import { simpleHash, userVerified } from "@/util/user";
 import { createSession, createUser } from "../src/util/http";
 import { revalidatePath } from "next/cache";
-import validate from "deep-email-validator";
-import PasswordValidator from "password-validator";
+import { validateEmail, validatePassword } from "../src/util/validators";
 export async function sendMessage(state, event) {
   const errors = [];
   const data = Object.fromEntries(event);
@@ -12,16 +11,17 @@ export async function sendMessage(state, event) {
   const last_name = event.get("lastName");
   const phone = event.get("phone_number");
   const email = event.get("email");
-  const emailValidate = await validate(email);
+  const emailValidate = validateEmail(email);
   const gender = event.get("gender");
   const message = event.get("message");
   if (first_name.trim().length == 0) errors.push("first_name");
   if (last_name.trim().length == 0) errors.push("last_name");
   if (phone.trim().length !== 11) errors.push("phone");
-  if (!emailValidate.validators.mx.valid) errors.push("email");
+  if (!emailValidate) errors.push("email");
   if (gender != "on") errors.push("gender");
   if (message.trim().length < 5) errors.push("message");
   if (errors.length > 0) return { errors };
+  console.log(`${process.env.HOST_SERVER_PORT}/contact/add-message`);
   let response = await fetch(
     `${process.env.HOST_SERVER_PORT}/contact/add-message`,
     {
@@ -32,20 +32,19 @@ export async function sendMessage(state, event) {
       },
     }
   );
+  console.log(response);
   const resMessage = await response.json();
-  console.log(resMessage.message);
-  redirect("/");
+  return redirect("/");
 }
 export async function signin(state, event) {
   const user = Object.fromEntries(event);
   const name = event.get("name");
   const phone = event.get("phone");
   const email = event.get("email");
-  const emailValidate = await validate(email);
+  const emailValidate = validateEmail(email);
   const gender = event.get("gender");
   const choosen_gender = event.get("choosen_gender");
   const password = event.get("password");
-  const passwordValidate = new PasswordValidator();
   const check_password = event.get("check_password");
   const errors = {
     name: "",
@@ -55,26 +54,12 @@ export async function signin(state, event) {
     password: "",
     check_password: "",
   };
-  passwordValidate
-    .is()
-    .min(8)
-    .is()
-    .max(20)
-    .has()
-    .uppercase()
-    .has()
-    .lowercase()
-    .has()
-    .digits(2)
-    .has()
-    .not()
-    .spaces();
   if (name.trim().length < 3) errors.name = "enter a valid name";
   if (phone.trim().length !== 11) errors.phone = "enter a valid phone number";
   if (gender !== "on") errors.gender = "please choose a gender";
   if (!emailValidate.validators.mx.valid)
     errors.email = "please enter a valid email";
-  if (!passwordValidate.validate(password))
+  if (!validatePassword(password))
     errors.password =
       "please enter a valid password \n must be (8 <= characters <= 16)";
   if (
@@ -121,7 +106,7 @@ export async function login(state, formData) {
   );
   const resMessage = await response.json();
   revalidatePath("/");
-  redirect(`/profile/${id}`);
+  return redirect(`/profile/${id}`);
 }
 export async function logout(userId) {
   console.log(userId);
